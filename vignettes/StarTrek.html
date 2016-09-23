@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Claudia Cava, Isabella Castiglioni" />
+
+<meta name="date" content="2016-09-23" />
+
+<title>Working with StarTrek package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link href="data:text/css;charset=utf-8,body%2C%20td%20%7B%0Afont%2Dfamily%3A%20sans%2Dserif%3B%0Abackground%2Dcolor%3A%20white%3B%0Afont%2Dsize%3A%2013px%3B%0A%7D%0Abody%20%7B%0Amax%2Dwidth%3A%20800px%3B%0Amargin%3A%200%20auto%3B%0Apadding%3A%201em%201em%202em%3B%0Aline%2Dheight%3A%2020px%3B%0A%7D%0A%0Adiv%23TOC%20li%20%7B%0Alist%2Dstyle%3Anone%3B%0Abackground%2Dimage%3Anone%3B%0Abackground%2Drepeat%3Anone%3B%0Abackground%2Dposition%3A0%3B%0A%7D%0A%0Ap%2C%20pre%20%7B%20margin%3A%200em%200em%201em%3B%0A%7D%0A%0Aimg%2C%20table%20%7B%0Amargin%3A%200em%20auto%201em%3B%0A%7D%0Ap%20%7B%0Atext%2Dalign%3A%20justify%3B%0A%7D%0Att%2C%20code%2C%20pre%20%7B%0Afont%2Dfamily%3A%20%27DejaVu%20Sans%20Mono%27%2C%20%27Droid%20Sans%20Mono%27%2C%20%27Lucida%20Console%27%2C%20Consolas%2C%20Monaco%2C%20monospace%3B%0A%7D%0Ah1%2C%20h2%2C%20h3%2C%20h4%2C%20h5%2C%20h6%20%7B%20font%2Dfamily%3A%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Amargin%3A%201%2E2em%200em%200%2E6em%200em%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%2Etitle%20%7B%0Afont%2Dsize%3A%20250%25%3B%0Afont%2Dweight%3A%20normal%3B%0Acolor%3A%20%2387b13f%3B%0Aline%2Dheight%3A%201%2E1em%3B%0Amargin%2Dtop%3A%200px%3B%0Aborder%2Dbottom%3A%200px%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%20160%25%3B%0Afont%2Dweight%3A%20normal%3B%0Aline%2Dheight%3A%201%2E4em%3B%0Aborder%2Dbottom%3A%201px%20%231a81c2%20solid%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%20130%25%3B%20%7D%0Ah1%2C%20h2%2C%20h3%20%7B%0Acolor%3A%20%231a81c2%3B%0A%7D%0Ah3%2C%20h4%2C%20h5%2C%20h6%20%7B%0Afont%2Dsize%3A115%25%3B%0A%7D%20%0A%0Aa%20%7B%20color%3A%20%231a81c2%3B%20%7D%0Aa%3Aactive%20%7B%20outline%3A%20none%3B%20%7D%0Aa%3Avisited%20%7B%20color%3A%20%231a81c2%3B%20%7D%0Aa%3Ahover%20%7B%20color%3A%20%234c94c2%3B%20%7D%0Apre%2C%20img%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Adisplay%3A%20block%3B%0A%7D%0Apre%20%7B%0Aborder%3A%200px%20none%3B%0Abackground%2Dcolor%3A%20%23F8F8F8%3B%0Awhite%2Dspace%3A%20pre%3B%0Aoverflow%2Dx%3A%20auto%3B%0A%7D%0Apre%20code%20%7B%0Aborder%3A%201px%20%23aaa%20dashed%3B%0Abackground%2Dcolor%3A%20white%3B%0Adisplay%3A%20block%3B%0Apadding%3A%201em%3B%20color%3A%20%23111%3B%0Aoverflow%2Dx%3A%20inherit%3B%0A%7D%0A%0Apre%20code%5Bclass%5D%20%7B%0Abackground%2Dcolor%3A%20inherit%3B%0A%7D%0A%0Apre%5Bclass%5D%20code%20%7B%0Abackground%2Dcolor%3A%20inherit%3B%0A%7D%0A%0Acode%20%7B%20background%2Dcolor%3A%20transparent%3B%0Acolor%3A%20%2387b13f%3B%0Afont%2Dsize%3A%2092%25%3B%0A%7D%0A%0Atable%2C%20td%2C%20th%20%7B%0Aborder%3A%20none%3B%0Apadding%3A%200%200%2E5em%3B%0A%7D%0A%0Atbody%20tr%3Anth%2Dchild%28odd%29%20td%20%7B%0Abackground%2Dcolor%3A%20%23F8F8F8%3B%0A%7D%0Ablockquote%20%7B%0Acolor%3A%23666666%3B%0Amargin%3A0%3B%0Apadding%2Dleft%3A%201em%3B%0Aborder%2Dleft%3A%200%2E5em%20%23EEE%20solid%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200px%3B%0Aborder%2Dbottom%3A%20none%3B%0Aborder%2Dtop%2Dwidth%3A%20thin%3B%0Aborder%2Dtop%2Dstyle%3A%20dotted%3B%0Aborder%2Dtop%2Dcolor%3A%20%23999999%3B%0A%7D%0Aspan%2Eheader%2Dsection%2Dnumber%20%7B%0Apadding%2Dright%3A%201em%3B%0A%7D%0Aspan%2Etoc%2Dsection%2Dnumber%3A%3Aafter%20%7B%0Acontent%3A%20%22%20%22%3B%0Awhite%2Dspace%3A%20pre%3B%0A%7D%0A%40media%20print%20%7B%0A%2A%20%7B%0Abackground%3A%20transparent%20%21important%3B%0Acolor%3A%20black%20%21important%3B%0Afilter%3Anone%20%21important%3B%0A%2Dms%2Dfilter%3A%20none%20%21important%3B%0A%7D%0Abody%20%7B%0Afont%2Dsize%3A12pt%3B%0Amax%2Dwidth%3A100%25%3B%0A%7D%0Aa%2C%20a%3Avisited%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Avisibility%3A%20hidden%3B%0Apage%2Dbreak%2Dbefore%3A%20always%3B%0A%7D%0Apre%2C%20blockquote%20%7B%0Apadding%2Dright%3A%201em%3B%0Apage%2Dbreak%2Dinside%3A%20avoid%3B%0A%7D%0Atr%2C%20img%20%7B%0Apage%2Dbreak%2Dinside%3A%20avoid%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%20%21important%3B%0A%7D%0A%40page%20%3Aleft%20%7B%0Amargin%3A%2015mm%2020mm%2015mm%2010mm%3B%0A%7D%0A%40page%20%3Aright%20%7B%0Amargin%3A%2015mm%2010mm%2015mm%2020mm%3B%0A%7D%0Ap%2C%20h2%2C%20h3%20%7B%0Aorphans%3A%203%3B%20widows%3A%203%3B%0A%7D%0Ah2%2C%20h3%20%7B%0Apage%2Dbreak%2Dafter%3A%20avoid%3B%0A%7D%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.links;  
+  for (var i = 0, linksLength = links.length; i < linksLength; i++)
+    if(links[i].hostname != window.location.hostname)
+      links[i].target = '_blank';
+});
+</script>
+
+</head>
+
+<body>
+
+
+<div id="header">
+<h1 class="title">Working with StarTrek package</h1>
+<h4 class="author"><em>Claudia Cava, Isabella Castiglioni</em></h4>
+<h4 class="date"><em>2016-09-23</em></h4>
+</div>
+
+<h1>Contents</h1>
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#get-data-get-kegg-pathway-network-and-tcga-data"><code>Get data</code>: Get KEGG pathway, network and TCGA data</a><ul>
+<li><a href="#getkeggdata-searching-kegg-data-for-download"><code>getKEGGdata</code>: Searching KEGG data for download</a></li>
+<li><a href="#getnetdata-searching-network-data-for-download"><code>getNETdata</code>: Searching network data for download</a></li>
+<li><a href="#get_tcgadata-searching-tcga-data-for-download"><code>get_TCGAdata</code>: Searching TCGA data for download</a></li>
+</ul></li>
+<li><a href="#integration-data-integration-between-kegg-pathway-and-network-data"><code>Integration data</code>: Integration between KEGG pathway and network data</a><ul>
+<li><a href="#path_net-interacting-genes-for-each-pathway-network-data-according-a-network-type-phintcolocgenintpathshpd"><code>path_net</code>: Interacting genes for each pathway (network data) according a network type (PHint,COloc,GENint,PATH,SHpd)</a></li>
+<li><a href="#list_path_net-list-of-interacting-genes-for-each-pathway-list-of-genes-according-a-network-type-phintcolocgenintpathshpd"><code>list_path_net</code>: List of interacting genes for each pathway (list of genes) according a network type (PHint,COloc,GENint,PATH,SHpd)</a></li>
+</ul></li>
+<li><a href="#pathway-summary-indexes-score-for-each-pathway"><code>Pathway summary indexes</code>: Score for each pathway</a><ul>
+<li><a href="#average-average-of-genes-for-each-pathway-starting-from-a-matrix-of-gene-expression"><code>average</code>: Average of genes for each pathway starting from a matrix of gene expression</a></li>
+<li><a href="#score_median-median-of-genes-for-each-pathway-starting-from-a-matrix-of-gene-expression"><code>score_median</code>: Median of genes for each pathway starting from a matrix of gene expression</a></li>
+<li><a href="#st_dv-standard-deviations-of-genes-for-each-pathway-starting-from-a-matrix-of-gene-expression"><code>st_dv</code>: Standard deviations of genes for each pathway starting from a matrix of gene expression</a></li>
+</ul></li>
+<li><a href="#pathway-cross-talk-indexes-score-for-pairwise-pathways"><code>Pathway cross-talk indexes</code>: Score for pairwise pathways</a><ul>
+<li><a href="#hamm_dist-hamming-distance-for-cross-talk-measure"><code>hamm_dist</code>: Hamming distance for cross-talk measure</a></li>
+<li><a href="#tau_dist-tau-distance-for-cross-talk-measure"><code>tau_dist</code>: TAU distance for cross-talk measure</a></li>
+<li><a href="#euc_dist_crtlk-euclidean-distance-for-cross-talk-measure"><code>euc_dist_crtlk</code>: Euclidean distance for cross-talk measure</a></li>
+<li><a href="#dev_std_crtlk-sum-of-standard-deviations-for-cross-talk-measure"><code>dev_std_crtlk</code>: Sum of standard deviations for cross-talk measure</a></li>
+<li><a href="#ds_score_crtlk-discriminating-score-for-cross-talk-measure"><code>ds_score_crtlk</code>: Discriminating score for cross-talk measure</a></li>
+</ul></li>
+<li><a href="#selection-of-pathway-cross-talk-selection-of-the-cross-talk-pathway"><code>Selection of pathway cross-talk</code>: Selection of the cross-talk pathway</a><ul>
+<li><a href="#svm_classification-svm-classification"><code>svm_classification</code>: SVM classification</a></li>
+</ul></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Motivation: New technologies have made possible to identify marker gene signatures. However, gene expression-based signatures present some limitations because they do not consider metabolic role of the genes and are affected by genetic heterogeneity across patient cohorts. Considering the activity of entire pathways rather than the expression levels of individual genes can be a way to exceed these limits. This tool <code>StarTrek</code> presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network data. New measures are under development.</p>
+</div>
+<div id="installation" class="section level1">
+<h1>Installation</h1>
+<p>To install use the code below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;https://bioconductor.org/biocLite.R&quot;</span>)
+<span class="kw">biocLite</span>(<span class="st">&quot;StarTrek&quot;</span>)</code></pre></div>
+</div>
+<div id="get-data-get-kegg-pathway-network-and-tcga-data" class="section level1">
+<h1><code>Get data</code>: Get KEGG pathway, network and TCGA data</h1>
+<div id="getkeggdata-searching-kegg-data-for-download" class="section level2">
+<h2><code>getKEGGdata</code>: Searching KEGG data for download</h2>
+<p>You can easily search KEGG data and their genes using the <code>getKEGGdata</code> function. It can download 306 pathways from KEGG or the user can select a particular list of pathways manually curated based on their role in the cell as metabolism, genetic Information processing, environmental information processing, Cellular processes and Organismal Systems using the following parameters:</p>
+<p>METABOLISM</p>
+<ul>
+<li><strong>Carb_met</strong> Carbohydrate_metabolism</li>
+<li><strong>Ener_met</strong> Energy_metabolism</li>
+<li><strong>Lip_met</strong> Lipid_metabolism</li>
+<li><strong>Amn_met</strong> Aminoacid_metabolism</li>
+<li><strong>Gly_bio_met</strong> Glycan_biosynthesis_and_metabolism</li>
+<li><strong>Cof_vit_met</strong> Metabolism_of_cofactors_and_vitamins</li>
+</ul>
+<p>GENETIC INFORMATION PROCESSING</p>
+<ul>
+<li><strong>Transcript</strong> Transcription</li>
+<li><strong>Transl</strong> Translation</li>
+<li><strong>Fold_degr</strong> Folding_sorting_and_degradation</li>
+<li><strong>Repl_repair</strong> Replication_and_repair</li>
+</ul>
+<p>ENVIRONMENTAL INFORMATION PROCESSING</p>
+<ul>
+<li><strong>sign_transd</strong> Signal_transduction</li>
+<li><strong>sign_mol_int</strong> Signaling_molecules_and_interaction</li>
+</ul>
+<p>CELLULAR PROCESSES</p>
+<ul>
+<li><strong>Transp_cat</strong> Transport_and_catabolism</li>
+<li><strong>cell_grow_d</strong> Cell_growth_and_death</li>
+<li><strong>cell_comm</strong> Cellular_community</li>
+</ul>
+<p>ORGANISMAL SYSTEMS</p>
+<ul>
+<li><strong>imm_syst</strong> Immune_system</li>
+<li><strong>end_syst</strong> Endocrine_system</li>
+<li><strong>circ_syst</strong> Circulatory_system</li>
+<li><strong>dig_syst </strong> Digestive_system</li>
+<li><strong>exc_syst</strong> Excretory_system</li>
+<li><strong>nerv_syst </strong> Nervous_system</li>
+<li><strong>sens_syst </strong> Sensory_system</li>
+</ul>
+<p>The following code is used to download all KEGG pathways and genes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path&lt;-<span class="kw">getKEGGdata</span>(<span class="dt">KEGG_path=</span><span class="st">&quot;KEGG_path&quot;</span>)</code></pre></div>
+<p>The following code is an example to download the pathways involved in energy metabolism:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path&lt;-<span class="kw">getKEGGdata</span>(<span class="dt">KEGG_path=</span><span class="st">&quot;Ener_met&quot;</span>)</code></pre></div>
+</div>
+<div id="getnetdata-searching-network-data-for-download" class="section level2">
+<h2><code>getNETdata</code>: Searching network data for download</h2>
+<p>You can easily search human network data from GeneMania using the <code>getNETdata</code> function. The network category can be filtered using the following parameters:</p>
+<ul>
+<li><strong>PHint</strong> Physical_interactions</li>
+<li><strong>COloc</strong> Co-localization</li>
+<li><strong>GENint</strong> Genetic_interactions</li>
+<li><strong>PATH</strong> Pathway</li>
+<li><strong>SHpd</strong> Shared_protein_domains</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">netw&lt;-<span class="kw">getNETdata</span>(<span class="dt">network=</span><span class="st">&quot;SHpd&quot;</span>)</code></pre></div>
+</div>
+<div id="get_tcgadata-searching-tcga-data-for-download" class="section level2">
+<h2><code>get_TCGAdata</code>: Searching TCGA data for download</h2>
+<p>You can easily search TCGA data using the <code>get_TCGAdata</code> function. The TCGA data can be selected using the parameters from <code>TCGAbiolinks</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer &lt;-<span class="st"> &quot;TCGA-BRCA&quot;</span>
+PlatformCancer &lt;-<span class="st"> &quot;Illumina HiSeq&quot;</span>
+tumour&lt;-<span class="kw">c</span>(<span class="st">&quot;TCGA-BH-A0DL-01A-11R-A115-07&quot;</span>,<span class="st">&quot;TCGA-AO-A03P-01A-11R-A00Z-07&quot;</span>)
+normal&lt;-<span class="kw">c</span>(<span class="st">&quot;TCGA-BH-A209-11A-42R-A157-07&quot;</span>,<span class="st">&quot;TCGA-E9-A1N4-11A-33R-A14M-07&quot;</span>) 
+TCGA_matrix&lt;-<span class="kw">get_TCGAdata</span>(cancer,PlatformCancer,tumour,normal,
+                                        <span class="dt">patha =</span> <span class="st">&quot;exampleData&quot;</span>)</code></pre></div>
+</div>
+</div>
+<div id="integration-data-integration-between-kegg-pathway-and-network-data" class="section level1">
+<h1><code>Integration data</code>: Integration between KEGG pathway and network data</h1>
+<div id="path_net-interacting-genes-for-each-pathway-network-data-according-a-network-type-phintcolocgenintpathshpd" class="section level2">
+<h2><code>path_net</code>: Interacting genes for each pathway (network data) according a network type (PHint,COloc,GENint,PATH,SHpd)</h2>
+<p>The function <code>path_net</code> creates network data for each pathway. Interacting genes are genes belonging to the same pathway and the interaction is given from network chosen by the user, according the paramenters of the function <code>getNETdata</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">netpath&lt;-<span class="kw">path_net</span>(<span class="dt">pathway=</span>path,<span class="dt">net_type=</span>netw)</code></pre></div>
+</div>
+<div id="list_path_net-list-of-interacting-genes-for-each-pathway-list-of-genes-according-a-network-type-phintcolocgenintpathshpd" class="section level2">
+<h2><code>list_path_net</code>: List of interacting genes for each pathway (list of genes) according a network type (PHint,COloc,GENint,PATH,SHpd)</h2>
+<p>The function <code>list_path_net</code> creates a list of interacting genes for each pathway. Interacting genes are genes belonging to the same pathway and the interaction is given from network chosen by the user, according the paramenters of the function <code>getNETdata</code>. The output will be a list of genes belonging to the same pathway and those having an interaction in the network.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list_path&lt;-<span class="kw">list_path_net</span>(<span class="dt">net_type=</span>netw,<span class="dt">pathway=</span>path)</code></pre></div>
+</div>
+</div>
+<div id="pathway-summary-indexes-score-for-each-pathway" class="section level1">
+<h1><code>Pathway summary indexes</code>: Score for each pathway</h1>
+<div id="average-average-of-genes-for-each-pathway-starting-from-a-matrix-of-gene-expression" class="section level2">
+<h2><code>average</code>: Average of genes for each pathway starting from a matrix of gene expression</h2>
+<p>Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function <code>average</code> creates an average matrix of gene expression for each pathway:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">score_mean&lt;-<span class="kw">average</span>(<span class="dt">dataFilt=</span>TCGA_matrix,<span class="dt">pathway=</span>path)</code></pre></div>
+</div>
+<div id="score_median-median-of-genes-for-each-pathway-starting-from-a-matrix-of-gene-expression" class="section level2">
+<h2><code>score_median</code>: Median of genes for each pathway starting from a matrix of gene expression</h2>
+<p>Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function <code>score_median</code> creates a median matrix of gene expression for each pathway:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">med&lt;-<span class="kw">score_median</span>(TCGA_matrix,path)</code></pre></div>
+</div>
+<div id="st_dv-standard-deviations-of-genes-for-each-pathway-starting-from-a-matrix-of-gene-expression" class="section level2">
+<h2><code>st_dv</code>: Standard deviations of genes for each pathway starting from a matrix of gene expression</h2>
+<p>Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function <code>st_dv</code> creates a standard deviation matrix of gene expression for each pathway:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">score_st_dev&lt;-<span class="kw">st_dv</span>(<span class="dt">dataFilt=</span>TCGA_matrix,<span class="dt">pathway=</span>path)</code></pre></div>
+</div>
+</div>
+<div id="pathway-cross-talk-indexes-score-for-pairwise-pathways" class="section level1">
+<h1><code>Pathway cross-talk indexes</code>: Score for pairwise pathways</h1>
+<div id="hamm_dist-hamming-distance-for-cross-talk-measure" class="section level2">
+<h2><code>hamm_dist</code>: Hamming distance for cross-talk measure</h2>
+<p>Starting from a matrix of pathway data (rows are genes and columns are pathways) the function <code>hamm_dist</code> creates a distance matrix for pairwise pathway based on the common genes among pathways.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hamm_distance&lt;-<span class="kw">hamming.distance</span>(list_path)</code></pre></div>
+</div>
+<div id="tau_dist-tau-distance-for-cross-talk-measure" class="section level2">
+<h2><code>tau_dist</code>: TAU distance for cross-talk measure</h2>
+<p>Starting from a matrix of pathway data (rows are values of activity pathway and columns are samples) the function <code>tau_dist</code> creates a distance matrix for pairwise pathway based on TAU distance.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">score_tau_dist&lt;-<span class="kw">tau_dist</span>(TCGA_matrix,path)</code></pre></div>
+</div>
+<div id="euc_dist_crtlk-euclidean-distance-for-cross-talk-measure" class="section level2">
+<h2><code>euc_dist_crtlk</code>: Euclidean distance for cross-talk measure</h2>
+<p>Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function <code>euc_dist_crtlk</code> creates an euclidean distance matrix of gene expression for pairwise pathway.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">score_euc_dist_crtlkance&lt;-<span class="kw">euc_dist_crtlk</span>(<span class="dt">dataFilt=</span>TCGA_matrix,<span class="dt">pathway=</span>path)</code></pre></div>
+</div>
+<div id="dev_std_crtlk-sum-of-standard-deviations-for-cross-talk-measure" class="section level2">
+<h2><code>dev_std_crtlk</code>: Sum of standard deviations for cross-talk measure</h2>
+<p>Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function <code>dev_std_crtlk</code> creates a standard deviation matrix of gene expression for pairwise pathway.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cross_talk_st_dv&lt;-<span class="kw">dev_std_crtlk</span>(<span class="dt">dataFilt=</span>TCGA_matrix,<span class="dt">pathway=</span>path)</code></pre></div>
+</div>
+<div id="ds_score_crtlk-discriminating-score-for-cross-talk-measure" class="section level2">
+<h2><code>ds_score_crtlk</code>: Discriminating score for cross-talk measure</h2>
+<p>Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function <code>ds_score_crtlk</code> creates an discriminating score matrix for pairwise pathway as measure of cross-talk. Discriminating score is given by |M1-M2|/S1+S2 where M1 and M2 are mean and standard deviation of expression levels of genes in a pathway 1 and and in a pathway 2 .</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cross_talk_st_dv&lt;-<span class="kw">ds_score_crtlk</span>(<span class="dt">dataFilt=</span>TCGA_matrix,<span class="dt">pathway=</span>path)</code></pre></div>
+</div>
+</div>
+<div id="selection-of-pathway-cross-talk-selection-of-the-cross-talk-pathway" class="section level1">
+<h1><code>Selection of pathway cross-talk</code>: Selection of the cross-talk pathway</h1>
+<div id="svm_classification-svm-classification" class="section level2">
+<h2><code>svm_classification</code>: SVM classification</h2>
+<p>This function is used to find the interacting pathway that change in a particular pathology.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Data_me=<span class="kw">read.table</span>(<span class="st">'C:/Users/UserInLab05/Desktop/GSE22216_series_matrix.txt'</span>,<span class="dt">header =</span> <span class="ot">TRUE</span>)
+nf &lt;-<span class="st"> </span><span class="dv">60</span>
+res_class&lt;-<span class="kw">svm_classification</span>(Data_me,nf)</code></pre></div>
+<hr />
+<div id="session-information" class="section level3">
+<h3>Session Information</h3>
+<hr />
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
+<pre><code>## R version 3.3.0 (2016-05-03)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 14393)
+## 
+## locale:
+## [1] LC_COLLATE=English_United Kingdom.1252 
+## [2] LC_CTYPE=English_United Kingdom.1252   
+## [3] LC_MONETARY=English_United Kingdom.1252
+## [4] LC_NUMERIC=C                           
+## [5] LC_TIME=English_United Kingdom.1252    
+## 
+## attached base packages:
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] StarTrek_0.99.0      ROCR_1.0-7           gplots_3.0.1        
+##  [4] e1071_1.6-7          miRNAtap_1.6.0       AnnotationDbi_1.34.4
+##  [7] IRanges_2.6.1        S4Vectors_0.10.3     Biobase_2.32.0      
+## [10] BiocGenerics_0.18.0  BiocStyle_2.0.3     
+## 
+## loaded via a namespace (and not attached):
+##   [1] proto_0.3-10                           
+##   [2] R.utils_2.4.0                          
+##   [3] lme4_1.1-12                            
+##   [4] htmlwidgets_0.7                        
+##   [5] RSQLite_1.0.0                          
+##   [6] grid_3.3.0                             
+##   [7] trimcluster_0.1-2                      
+##   [8] BiocParallel_1.6.6                     
+##   [9] devtools_1.12.0                        
+##  [10] DESeq_1.24.0                           
+##  [11] munsell_0.4.3                          
+##  [12] codetools_0.2-14                       
+##  [13] preprocessCore_1.34.0                  
+##  [14] chron_2.3-47                           
+##  [15] withr_1.0.2                            
+##  [16] colorspace_1.2-6                       
+##  [17] BiocInstaller_1.22.3                   
+##  [18] knitr_1.14                             
+##  [19] supraHex_1.10.0                        
+##  [20] robustbase_0.92-6                      
+##  [21] mnormt_1.5-4                           
+##  [22] hwriter_1.3.2                          
+##  [23] downloader_0.4                         
+##  [24] TH.data_1.0-7                          
+##  [25] ggthemes_3.2.0                         
+##  [26] EDASeq_2.6.2                           
+##  [27] diptest_0.75-7                         
+##  [28] R6_2.1.3                               
+##  [29] doParallel_1.0.10                      
+##  [30] GenomeInfoDb_1.8.7                     
+##  [31] flexmix_2.3-13                         
+##  [32] bitops_1.0-6                           
+##  [33] reshape_0.8.5                          
+##  [34] assertthat_0.1                         
+##  [35] networkD3_0.2.13                       
+##  [36] scales_0.4.0                           
+##  [37] multcomp_1.4-6                         
+##  [38] nnet_7.3-12                            
+##  [39] gtable_0.2.0                           
+##  [40] affy_1.50.0                            
+##  [41] sandwich_2.3-4                         
+##  [42] genefilter_1.54.2                      
+##  [43] sjPlot_2.0.2                           
+##  [44] GlobalOptions_0.0.10                   
+##  [45] splines_3.3.0                          
+##  [46] rtracklayer_1.32.2                     
+##  [47] lazyeval_0.2.0                         
+##  [48] SpidermiR_1.1.16                       
+##  [49] hexbin_1.27.1                          
+##  [50] broom_0.4.1                            
+##  [51] yaml_2.1.13                            
+##  [52] reshape2_1.4.1                         
+##  [53] GenomicFeatures_1.24.5                 
+##  [54] tools_3.3.0                            
+##  [55] psych_1.6.9                            
+##  [56] ggplot2_2.1.0                          
+##  [57] affyio_1.42.0                          
+##  [58] RColorBrewer_1.1-2                     
+##  [59] gsubfn_0.6-6                           
+##  [60] Rcpp_0.12.7                            
+##  [61] plyr_1.8.4                             
+##  [62] visNetwork_1.0.1                       
+##  [63] zlibbioc_1.18.0                        
+##  [64] RCurl_1.95-4.8                         
+##  [65] sqldf_0.4-10                           
+##  [66] GetoptLong_0.1.4                       
+##  [67] cowplot_0.6.2                          
+##  [68] zoo_1.7-13                             
+##  [69] SummarizedExperiment_1.2.3             
+##  [70] haven_0.2.1                            
+##  [71] ggrepel_0.5                            
+##  [72] cluster_2.0.4                          
+##  [73] magrittr_1.5                           
+##  [74] data.table_1.9.6                       
+##  [75] dnet_1.0.9                             
+##  [76] circlize_0.3.8                         
+##  [77] effects_3.1-1                          
+##  [78] mvtnorm_1.0-5                          
+##  [79] whisker_0.3-2                          
+##  [80] sjmisc_1.8                             
+##  [81] matrixStats_0.50.2                     
+##  [82] aroma.light_3.2.0                      
+##  [83] evaluate_0.9                           
+##  [84] xtable_1.8-2                           
+##  [85] XML_3.98-1.4                           
+##  [86] sjstats_0.4.0                          
+##  [87] mclust_5.2                             
+##  [88] gridExtra_2.2.1                        
+##  [89] shape_1.4.2                            
+##  [90] biomaRt_2.28.0                         
+##  [91] tibble_1.2                             
+##  [92] KernSmooth_2.23-15                     
+##  [93] minqa_1.2.4                            
+##  [94] R.oo_1.20.0                            
+##  [95] htmltools_0.3.5                        
+##  [96] tidyr_0.6.0                            
+##  [97] geneplotter_1.50.0                     
+##  [98] DBI_0.5-1                              
+##  [99] formatR_1.4                            
+## [100] matlab_1.0.2                           
+## [101] ComplexHeatmap_1.10.2                  
+## [102] MASS_7.3-45                            
+## [103] fpc_2.1-10                             
+## [104] ShortRead_1.30.0                       
+## [105] Matrix_1.2-7.1                         
+## [106] readr_1.0.0                            
+## [107] parmigene_1.0.2                        
+## [108] R.methodsS3_1.7.1                      
+## [109] gdata_2.17.0                           
+## [110] igraph_1.0.1                           
+## [111] GenomicRanges_1.24.3                   
+## [112] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2
+## [113] GenomicAlignments_1.8.4                
+## [114] coin_1.1-2                             
+## [115] foreign_0.8-67                         
+## [116] xml2_1.0.0                             
+## [117] roxygen2_5.0.1                         
+## [118] foreach_1.4.3                          
+## [119] annotate_1.50.0                        
+## [120] stringdist_0.9.4.2                     
+## [121] XVector_0.12.1                         
+## [122] rvest_0.3.2                            
+## [123] stringr_1.1.0                          
+## [124] digest_0.6.10                          
+## [125] ConsensusClusterPlus_1.36.0            
+## [126] graph_1.50.0                           
+## [127] Biostrings_2.40.2                      
+## [128] rmarkdown_1.0                          
+## [129] TCGAbiolinks_2.1.6                     
+## [130] dendextend_1.3.0                       
+## [131] edgeR_3.14.0                           
+## [132] miRNAtap.db_0.99.7                     
+## [133] kernlab_0.9-24                         
+## [134] Rsamtools_1.24.0                       
+## [135] gtools_3.5.0                           
+## [136] modeltools_0.2-21                      
+## [137] rjson_0.2.15                           
+## [138] nloptr_1.0.4                           
+## [139] nlme_3.1-128                           
+## [140] jsonlite_1.1                           
+## [141] limma_3.28.21                          
+## [142] lattice_0.20-34                        
+## [143] GGally_1.2.0                           
+## [144] KEGGREST_1.12.2                        
+## [145] httr_1.2.1                             
+## [146] DEoptimR_1.0-6                         
+## [147] survival_2.39-5                        
+## [148] png_0.1-7                              
+## [149] prabclus_2.2-6                         
+## [150] iterators_1.0.8                        
+## [151] Rgraphviz_2.16.0                       
+## [152] class_7.3-14                           
+## [153] stringi_1.1.1                          
+## [154] org.Hs.eg.db_3.3.0                     
+## [155] latticeExtra_0.6-28                    
+## [156] caTools_1.17.1                         
+## [157] memoise_1.0.0                          
+## [158] dplyr_0.5.0                            
+## [159] ape_3.5</code></pre>
+</div>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
