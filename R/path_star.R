@@ -185,6 +185,7 @@ score_median<-function(dataFilt,pathway){
 #' @description tau_dist creates a matrix with tau distance for pairwise pathways  
 #' @param dataFilt TCGA matrix
 #' @param pathway pathway data
+#' @importFrom bioDist tau.dist
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
@@ -196,7 +197,8 @@ score_median<-function(dataFilt,pathway){
 #' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
 #' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
 #'                                        patha = "exampleData")
-#' score_tau_dist<-tau_dist(TCGA_matrix,path)}
+#' score_tau_dist<-tau_dist(TCGA_matrix,path)
+#' }
 tau_dist <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   datam = as.matrix(PEAmatrix)
@@ -377,8 +379,10 @@ return(d)}
 
 #' @title SVM classification for each feature
 #' @description svm class creates a list with auc value  
-#' @param Data_CANCER_mRNA_tumor_HighStage Data_CANCER_mRNA_tumor_HighStage
+#' @param TCGA_matrix gene expression matrix
 #' @param nfs nfs split data into a training  and test set
+#' @param tumour barcode samples for a class
+#' @param normal barcode samples for another class
 #' @export
 #' @importFrom e1071 tune svm 
 #' @importFrom ROCR prediction performance 
@@ -386,18 +390,44 @@ return(d)}
 #' @return a symmetric matrix value with a distance among pathways 
 #' @examples
 #' \dontrun{
-#' Data_me=read.table('C:/Users/UserInLab05/Desktop/GSE22216_series_matrix.txt',header = TRUE)
+#' cancer <- "TCGA-BRCA"
+#' PlatformCancer <- "Illumina HiSeq"
+#' tumo<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
+#' norm<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
+#'                                        patha = "exampleData")
 #' nf <- 60
-#' res_class<-svm_classification(Data_me,nf)
+#' res_class<-svm_classification(TCGA_matrix,nf,norm,tumo)
 #' }
-#library("e1071")
-#library(ROCR) 
-svm_classification<-function(Data_CANCER_mRNA_tumor_HighStage,nfs){
+ 
+svm_classification<-function(Data_CANCER_mRNA_tumor_HighStage,tumour,normal,nfs){
+  #library("e1071")
+  #library(ROCR)
+  dataFilt<-TCGA_matrix
+  DataMatrix<-dataFilt
+  dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
+  DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
+  DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
+  rownames(DataMatrix)<-DataMatrix$new.col
+  DataMatrix$new.col<-NULL
+  
+  tDataMatrix<-as.data.frame(t(DataMatrix))
 
+  tDataMatrix$Target<-0
+  tum<-intersect(rownames(tDataMatrix),tumour)
+  nor<-intersect(rownames(tDataMatrix),normal)
+  tDataMatrix$
+    
+  Dataset_g1<-tDataMatrix[nor,]
+  Dataset_g3<- tDataMatrix[tum,]
+    
+  
 #training=read.table('C:/Users/UserInLab05/Desktop/trai.txt',header = TRUE)
 #testset=read.table('C:/Users/UserInLab05/Desktop/test.txt',header = TRUE)
-Dataset_g1 <- Data_CANCER_mRNA_tumor_HighStage[Data_CANCER_mRNA_tumor_HighStage$Target == 0, ]
-Dataset_g3 <- Data_CANCER_mRNA_tumor_HighStage[Data_CANCER_mRNA_tumor_HighStage$Target == 1, ]
+
+  #Dataset_g1 <- Data_CANCER_mRNA_tumor_HighStage[Data_CANCER_mRNA_tumor_HighStage$Target == 0, ]
+#Dataset_g3 <- Data_CANCER_mRNA_tumor_HighStage[Data_CANCER_mRNA_tumor_HighStage$Target == 1, ]
+  
 tab_g1_training <- sample(Dataset_g1$ID,round(nrow(Dataset_g1) / 100 * nfs ))
 tab_g3_training <- sample(Dataset_g3$ID,round(nrow(Dataset_g3) / 100 * nfs ))
 tab_g1_testing <- as.factor(setdiff(Dataset_g1$ID,tab_g1_training))

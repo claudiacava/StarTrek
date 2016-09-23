@@ -26,6 +26,7 @@ tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
 normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
 TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
                                        patha = "exampleData")
-score_tau_dist<-tau_dist(TCGA_matrix,path)}
+score_tau_dist<-tau_dist(TCGA_matrix,path)
+}
 }
 

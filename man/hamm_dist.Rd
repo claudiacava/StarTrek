@@ -20,7 +20,7 @@ hamm_dist creates a matrix with Hamming distance values for pathways
 path<-getKEGGdata(KEGG_path="Transcript")
 netw<-getNETdata(network="SHpd")
 list_path<-list_path_net(net_type=netw,pathway=path)
-hamm_distance<-hamming.distance(list_path)
+hamm_distance<-hamm_dist(list_path)
 }
 }
 
