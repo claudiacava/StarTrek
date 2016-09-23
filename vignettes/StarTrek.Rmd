@@ -427,8 +427,8 @@ path<-getKEGGdata(KEGG_path="KEGG_path")
 
 The following code is an example to download the pathways involved in energy metabolism:
 
-```{r, eval = FALSE}
-path<-getKEGGdata(KEGG_path="Ener_met")
+```{r, eval = TRUE}
+path<-getKEGGdata(KEGG_path="Transcript")
 ```
 
 
@@ -443,7 +443,7 @@ The network category can be filtered using the following parameters:
 * **SHpd**  Shared_protein_domains 
 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 netw<-getNETdata(network="SHpd")
 ```
 
@@ -452,7 +452,7 @@ You can easily search TCGA data using the `get_TCGAdata` function.
 The TCGA data can be selected using the parameters from `TCGAbiolinks` package. 
 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 cancer <- "TCGA-BRCA"
 PlatformCancer <- "Illumina HiSeq"
 tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
@@ -486,14 +486,14 @@ list_path<-list_path_net(net_type=netw,pathway=path)
 ## `average`: Average of genes for each pathway starting from a matrix of gene expression 
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `average` creates an average matrix of gene expression for each pathway:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 score_mean<-average(dataFilt=TCGA_matrix,pathway=path)
 ```
 
 ## `score_median`: Median of genes for each pathway starting from a matrix of gene expression 
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `score_median` creates a median matrix of gene expression for each pathway:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 med<-score_median(TCGA_matrix,path)
 ```
 
@@ -502,7 +502,7 @@ med<-score_median(TCGA_matrix,path)
 ## `st_dv`: Standard deviations of genes for each pathway starting from a matrix of gene expression 
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `st_dv` creates a standard deviation matrix of gene expression for each pathway:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 score_st_dev<-st_dv(dataFilt=TCGA_matrix,pathway=path)
 ```
 
@@ -515,14 +515,14 @@ score_st_dev<-st_dv(dataFilt=TCGA_matrix,pathway=path)
 Starting from a matrix of pathway data (rows are genes and columns are pathways) the function `hamm_dist` creates a distance matrix for pairwise pathway based on the common genes among pathways.
 
 ```{r, eval = FALSE}
-hamm_distance<-hamming.distance(list_path)
+hamm_distance<-hamm_dist(list_pat=list_path)
 ```
 
 
 ## `tau_dist`: TAU distance for cross-talk measure
 Starting from a matrix of pathway data (rows are values of activity pathway and columns are samples) the function `tau_dist` creates a distance matrix for pairwise pathway based on TAU distance.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 score_tau_dist<-tau_dist(TCGA_matrix,path)
 ```
 
@@ -532,14 +532,14 @@ score_tau_dist<-tau_dist(TCGA_matrix,path)
 ## `euc_dist_crtlk`: Euclidean distance for cross-talk measure
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `euc_dist_crtlk` creates an euclidean distance matrix of gene expression for pairwise pathway.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 score_euc_dist_crtlkance<-euc_dist_crtlk(dataFilt=TCGA_matrix,pathway=path)
 ```
 
 ## `dev_std_crtlk`: Sum of standard deviations for cross-talk measure
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `dev_std_crtlk` creates a standard deviation matrix of gene expression for pairwise pathway.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 cross_talk_st_dv<-dev_std_crtlk(dataFilt=TCGA_matrix,pathway=path)
 ```
 
@@ -547,7 +547,7 @@ cross_talk_st_dv<-dev_std_crtlk(dataFilt=TCGA_matrix,pathway=path)
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `ds_score_crtlk` creates an discriminating score matrix for pairwise pathway as measure of cross-talk. Discriminating score is given by |M1-M2|/S1+S2 where M1 and M2 are mean and standard deviation of expression levels of genes in a pathway 1 and and in a pathway 2 . 
 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 cross_talk_st_dv<-ds_score_crtlk(dataFilt=TCGA_matrix,pathway=path)
 ```
 

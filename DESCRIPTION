@@ -20,7 +20,9 @@ Imports:
 Description: This tool StarTrek presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network data.
 License: GPL (>= 3)
 biocViews: GeneRegulation,
-    Network
+    Network,
+	Pathways,
+	KEGG
 Suggests:
     BiocStyle,
     knitr,

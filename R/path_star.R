@@ -367,7 +367,7 @@ return(score)
 #' path<-getKEGGdata(KEGG_path="Transcript")
 #' netw<-getNETdata(network="SHpd")
 #' list_path<-list_path_net(net_type=netw,pathway=path)
-#' hamm_distance<-hamming.distance(list_path)
+#' hamm_distance<-hamm_dist(list_path)
 #' }
 hamm_dist<-function(list_pat){
 alt<-t(list_pat)
