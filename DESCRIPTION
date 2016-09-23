@@ -4,7 +4,6 @@ Title: StarTrek
 Version: 0.99.0
 Date: 09-22-2016
 Author: Claudia Cava,
-    Gloria Bertoli,
     Isabella Castiglioni
 Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
 Depends:
@@ -18,7 +17,7 @@ Imports:
 	e1071,
 	ROCR,
 	grDevices
-Description: The aims of StarTrek are : 
+Description: This tool StarTrek presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network data.
 License: GPL (>= 3)
 biocViews: GeneRegulation,
     Network
