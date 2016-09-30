@@ -5,9 +5,7 @@
 #' @export
 #' @return a list of network data for each pathway (interacting genes belong to that pathway)
 #' @examples
-#' \dontrun{
 #' lista_net<-path_net(pathway=path,net_type=netw)
-#' }
 path_net<-function(pathway,net_type){
     lista_int<-list()
     for (k in 1:ncol(pathway)){
@@ -61,10 +59,9 @@ path_net<-function(pathway,net_type){
 #' @export
 #' @return a list of genes for each pathway (interacting genes belong to that pathway)
 #' @examples
-#' \dontrun{
 #' path<-getKEGGdata(KEGG_path="Transcript")
 #' netw<-getNETdata(network="SHpd")
-#' list_path<-list_path_net(net_type=netw,pathway=path)}
+#' list_path<-list_path_net(net_type=netw,pathway=path)
 list_path_net<-function(net_type,pathway){
   i <- sapply(net_type, is.factor) 
   net_type[i] <- lapply(net_type[i], as.character)
@@ -314,7 +311,6 @@ return(somma_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' \dontrun{
 #' path<-getKEGGdata(KEGG_path="Transcript")
 #' cancer <- "TCGA-BRCA"
 #' PlatformCancer <- "Illumina HiSeq"
@@ -322,7 +318,7 @@ return(somma_sd)
 #' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
 #' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
 #'                                        patha = "exampleData")
-#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=TCGA_matrix,pathway=path)}
+#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=TCGA_matrix,pathway=path)
 ds_score_crtlk<-function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -361,7 +357,7 @@ return(score)
 #' path<-getKEGGdata(KEGG_path="Transcript")
 #' netw<-getNETdata(network="SHpd")
 #' list_path<-list_path_net(net_type=netw,pathway=path)
-#' hamm_distance<-hamm_dist(list_path)
+#' hamm_distance<-hamm_dist(list_pat=list_path)
 hamm_dist<-function(list_pat){
 alt<-t(list_pat)
 d<-hamming.distance(as.matrix(alt))
@@ -432,14 +428,14 @@ rownames(Dataset_g3)<-Dataset_g3$ID
 G3<-Dataset_g3[FR1,]
 training<-rbind(G1,G3)
 
-F<-intersect(Dataset_g1$ID,tab_g1_testing)
+inter1<-intersect(Dataset_g1$ID,tab_g1_testing)
 rownames(Dataset_g1)<-Dataset_g1$ID
 
-G1_testing<-Dataset_g1[FALSE,]
+G1_testing<-Dataset_g1[inter1,]
 
-FL<-intersect(Dataset_g3$ID,tab_g3_testing)
+inter2<-intersect(Dataset_g3$ID,tab_g3_testing)
 rownames(Dataset_g3)<-Dataset_g3$ID
-G3_testing<-Dataset_g3[FL,]
+G3_testing<-Dataset_g3[inter2,]
 
 testing<-rbind(G1_testing,G3_testing)
 

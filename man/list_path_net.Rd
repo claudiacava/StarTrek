@@ -18,9 +18,8 @@ a list of genes for each pathway (interacting genes belong to that pathway)
 list_path_net creates a list of interacting genes for each human pathway.
 }
 \examples{
-\dontrun{
 path<-getKEGGdata(KEGG_path="Transcript")
 netw<-getNETdata(network="SHpd")
-list_path<-list_path_net(net_type=netw,pathway=path)}
+list_path<-list_path_net(net_type=netw,pathway=path)
 }
 

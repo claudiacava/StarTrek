@@ -18,8 +18,6 @@ a list of network data for each pathway (interacting genes belong to that pathwa
 path_net creates a list of network data for each human pathway. The network data will be generated when interacting genes belong to that pathway.
 }
 \examples{
-\dontrun{
 lista_net<-path_net(pathway=path,net_type=netw)
-}
 }
 
