@@ -437,9 +437,9 @@ rownames(Dataset_g1)<-Dataset_g1$ID
 
 G1_testing<-Dataset_g1[FALSE,]
 
-F1<-intersect(Dataset_g3$ID,tab_g3_testing)
+FL<-intersect(Dataset_g3$ID,tab_g3_testing)
 rownames(Dataset_g3)<-Dataset_g3$ID
-G3_testing<-Dataset_g3[F1,]
+G3_testing<-Dataset_g3[FL,]
 
 testing<-rbind(G1_testing,G3_testing)
 

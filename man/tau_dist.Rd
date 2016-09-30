@@ -18,7 +18,6 @@ a matrix value for each pathway
 tau_dist creates a matrix with tau distance for pairwise pathways
 }
 \examples{
-\dontrun{
 path<-getKEGGdata(KEGG_path="Transcript")
 cancer <- "TCGA-BRCA"
 PlatformCancer <- "Illumina HiSeq"
@@ -27,6 +26,5 @@ normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07")
 TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
                                        patha = "exampleData")
 score_tau_dist<-tau_dist(TCGA_matrix,path)
-}
 }
 

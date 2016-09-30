@@ -18,7 +18,6 @@ a matrix value for each pathway
 st_dv creates a matrix with standard deviation for pathways
 }
 \examples{
-\dontrun{
 path<-getKEGGdata(KEGG_path="Transcript")
 cancer <- "TCGA-BRCA"
 PlatformCancer <- "Illumina HiSeq"
@@ -26,6 +25,6 @@ tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
 normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
 TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
                                        patha = "exampleData")
-cross_talk_st_dv<-dev_std_crtlk(dataFilt=TCGA_matrix,pathway=path)}
+cross_talk_st_dv<-dev_std_crtlk(dataFilt=TCGA_matrix,pathway=path)
 }
 

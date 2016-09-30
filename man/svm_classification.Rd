@@ -4,16 +4,16 @@
 \alias{svm_classification}
 \title{SVM classification for each feature}
 \usage{
-svm_classification(Data_CANCER_mRNA_tumor_HighStage, tumour, normal, nfs)
+svm_classification(TCGA_matrix, tumour, normal, nfs)
 }
 \arguments{
+\item{TCGA_matrix}{gene expression matrix}
+
 \item{tumour}{barcode samples for a class}
 
 \item{normal}{barcode samples for another class}
 
 \item{nfs}{nfs split data into a training  and test set}
-
-\item{TCGA_matrix}{gene expression matrix}
 }
 \value{
 a symmetric matrix value with a distance among pathways
@@ -27,10 +27,10 @@ cancer <- "TCGA-BRCA"
 PlatformCancer <- "Illumina HiSeq"
 tumo<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
 norm<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
+TCGA_data<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
                                        patha = "exampleData")
 nf <- 60
-res_class<-svm_classification(TCGA_matrix,nf,norm,tumo)
+res_class<-svm_classification(TCGA_matrix=TCGA_data,nfs=nf,normal=norm,tumour=tumo)
 }
 }
 

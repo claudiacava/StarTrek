@@ -16,11 +16,9 @@ a symmetric matrix value with a distance among pathways
 hamm_dist creates a matrix with Hamming distance values for pathways
 }
 \examples{
-\dontrun{
 path<-getKEGGdata(KEGG_path="Transcript")
 netw<-getNETdata(network="SHpd")
 list_path<-list_path_net(net_type=netw,pathway=path)
 hamm_distance<-hamm_dist(list_path)
-}
 }
 
