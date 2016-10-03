@@ -22,15 +22,10 @@ a symmetric matrix value with a distance among pathways
 svm class creates a list with auc value
 }
 \examples{
-\dontrun{
-cancer <- "TCGA-BRCA"
-PlatformCancer <- "Illumina HiSeq"
-tumo<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-norm<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-TCGA_data<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-                                       patha = "exampleData")
+tumo<-SelectedSample(Dataset=BRCA_rnaseqv2,typesample="tumor")[,1:30]
+norm<-SelectedSample(Dataset=BRCA_rnaseqv2,typesample="normal")[,1:30]
+score_euc_dist<-euc_dist_crtlk(dataFilt=BRCA_rnaseqv2,path)
 nf <- 60
-res_class<-svm_classification(TCGA_matrix=TCGA_data,nfs=nf,normal=norm,tumour=tumo)
-}
+res_class<-svm_classification(TCGA_matrix=BRCA_rnaseqv2,nfs=nf,normal=colnames(norm),tumour=colnames(tumo))
 }
 

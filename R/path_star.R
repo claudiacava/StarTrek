@@ -59,8 +59,6 @@ path_net<-function(pathway,net_type){
 #' @export
 #' @return a list of genes for each pathway (interacting genes belong to that pathway)
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' netw<-getNETdata(network="SHpd")
 #' list_path<-list_path_net(net_type=netw,pathway=path)
 list_path_net<-function(net_type,pathway){
   i <- sapply(net_type, is.factor) 
@@ -95,23 +93,15 @@ list_path_net<-function(net_type,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-#' score_mean<-average(TCGA_matrix,path)
+#' score_mean<-average(dataFilt=BRCA_rnaseqv2,path)
 average<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
-  dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
-  DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
-  DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
-  rownames(DataMatrix)<-DataMatrix$new.col
-  DataMatrix$new.col<-NULL
-#DataMatrix <- cbind(Data_CANCER_normUQ_filt_normal, Data_CANCER_mRNA_tumor_HighStage)
-#DataMatrix <- Data_CANCER_mRNA_tumor_HighStage
+  #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
+  #DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
+  #DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
+  #rownames(DataMatrix)<-DataMatrix$new.col
+  #DataMatrix$new.col<-NULL
+
 PEAmatrix <- matrix( 0, ncol(pathway),ncol(DataMatrix))
 rownames(PEAmatrix) <- colnames(pathway)
 colnames(PEAmatrix) <-  colnames(DataMatrix)
@@ -138,23 +128,14 @@ return(PEAmatrix)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-#' med<-score_median(TCGA_matrix,path)
+#' med<-score_median(dataFilt=BRCA_rnaseqv2,path)
 score_median<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
-  DataMatrix[ , "new.col"] <- gsub("\\|.*", "", rownames(DataMatrix))
-  DataMatrix<-DataMatrix[which(DataMatrix$new.col!="?"),]
-  DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
-  rownames(DataMatrix)<-DataMatrix$new.col
-  DataMatrix$new.col<-NULL
-  #DataMatrix <- cbind(Data_CANCER_normUQ_filt_normal, Data_CANCER_mRNA_tumor_HighStage)
-  #DataMatrix <- Data_CANCER_mRNA_tumor_HighStage
+  #DataMatrix[ , "new.col"] <- gsub("\\|.*", "", rownames(DataMatrix))
+  #DataMatrix<-DataMatrix[which(DataMatrix$new.col!="?"),]
+  #DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
+  #rownames(DataMatrix)<-DataMatrix$new.col
+  #DataMatrix$new.col<-NULL
   PEAmatrix <- matrix( 0, ncol(pathway),ncol(DataMatrix))
   rownames(PEAmatrix) <- colnames(pathway)
   colnames(PEAmatrix) <-  colnames(DataMatrix)
@@ -184,14 +165,7 @@ score_median<-function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-#' score_tau_dist<-tau_dist(TCGA_matrix,path)
+#' score_tau_dist<-tau_dist(dataFilt=BRCA_rnaseqv2,path)
 tau_dist <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   datam = as.matrix(PEAmatrix)
@@ -209,14 +183,7 @@ tau_dist <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-#' score_euc_dist<-euc_dist_crtlk(TCGA_matrix,path)
+#' score_euc_dist<-euc_dist_crtlk(dataFilt=BRCA_rnaseqv2,path)
 euc_dist_crtlk <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -242,21 +209,16 @@ euc_dist_crtlk <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-#' stand_dev<-st_dv(dataFilt=TCGA_matrix,pathway=path)
+#' stand_dev<-st_dv(dataFilt=BRCA_rnaseqv2,pathway=path)
 st_dv<-function(dataFilt,pathway){
 DataMatrix<-dataFilt
-dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
-DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
-DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
-rownames(DataMatrix)<-DataMatrix$new.col
-DataMatrix$new.col<-NULL
+
+#dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
+#DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
+#DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
+#rownames(DataMatrix)<-DataMatrix$new.col
+#DataMatrix$new.col<-NULL
+
 PEAmatrix_sd <- matrix( 0, ncol(pathway),ncol(DataMatrix))
 rownames(PEAmatrix_sd) <- colnames(pathway)
 colnames(PEAmatrix_sd) <-  colnames(DataMatrix)
@@ -278,14 +240,7 @@ return(PEAmatrix_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-#' cross_talk_st_dv<-dev_std_crtlk(dataFilt=TCGA_matrix,pathway=path)
+#' cross_talk_st_dv<-dev_std_crtlk(dataFilt=BRCA_rnaseqv2,pathway=path)
 dev_std_crtlk<-function(dataFilt,pathway){
 PEAmatrix_sd<-st_dv(dataFilt,pathway)
 df=combn(rownames(PEAmatrix_sd),2) 
@@ -311,14 +266,7 @@ return(somma_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=TCGA_matrix,pathway=path)
+#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=BRCA_rnaseqv2,pathway=path)
 ds_score_crtlk<-function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -349,14 +297,11 @@ return(score)
 
 #' @title Hamming distance  
 #' @description hamm_dist creates a matrix with Hamming distance values for pathways  
-#' @param list_path pathway data
+#' @param list_pat pathway data
 #' @export
 #' @importFrom e1071  hamming.distance
 #' @return a symmetric matrix value with a distance among pathways 
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
-#' netw<-getNETdata(network="SHpd")
-#' list_path<-list_path_net(net_type=netw,pathway=path)
 #' hamm_distance<-hamm_dist(list_pat=list_path)
 hamm_dist<-function(list_pat){
 alt<-t(list_pat)
@@ -376,34 +321,64 @@ return(d)}
 #' @importFrom  grDevices rainbow
 #' @return a symmetric matrix value with a distance among pathways 
 #' @examples
-#' \dontrun{
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumo<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' norm<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' TCGA_data<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
+#' tumo<-SelectedSample(Dataset=BRCA_rnaseqv2,typesample="tumor")[,1:30]
+#' norm<-SelectedSample(Dataset=BRCA_rnaseqv2,typesample="normal")[,1:30]
+#' score_euc_dist<-euc_dist_crtlk(dataFilt=BRCA_rnaseqv2,path)
 #' nf <- 60
-#' res_class<-svm_classification(TCGA_matrix=TCGA_data,nfs=nf,normal=norm,tumour=tumo)
-#' }
- 
+#' res_class<-svm_classification(TCGA_matrix=BRCA_rnaseqv2,nfs=nf,normal=colnames(norm),tumour=colnames(tumo))
 svm_classification<-function(TCGA_matrix,tumour,normal,nfs){
   #library("e1071")
   #library(ROCR)
   dataFilt<-TCGA_matrix
   DataMatrix<-dataFilt
-  dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
-  DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
-  DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
-  rownames(DataMatrix)<-DataMatrix$new.col
-  DataMatrix$new.col<-NULL
   
-  tDataMatrix<-as.data.frame(t(DataMatrix))
+  scoreMatrix <- as.data.frame(DataMatrix[,3:ncol(DataMatrix)])
+  DataMatrix[,1] <- gsub(" ", "_", DataMatrix[,1])
+  d<-sub('_-_Homo_sapiens_*', '', DataMatrix[,1])
+  #d_pr<-sub(')*', '', DataMatrix[,1])
+  
+  d_pr<- gsub("(human)", "", d, fixed="TRUE")
+  d_pr <- gsub("_", "", d_pr)
+  d_pr <- gsub("-", "", d_pr)
+  
+  DataMatrix[,2] <- gsub(" ", "_", DataMatrix[,2])
+  d2<-sub('_-_Homo_sapiens_(human)*', '', DataMatrix[,2])
+  d_pr2<- gsub("(human)", "", d2, fixed="TRUE")
+  d_pr2 <- gsub("_", "", d_pr2)
+  d_pr2 <- gsub("-", "", d_pr2)
+  
+  PathwaysPair <- paste( as.matrix(d_pr), as.matrix(d_pr2),sep="_" )
+  
+  #PathwaysPair2 <- gsub(" ", "_", PathwaysPair)
+  
+  #s<-gsub("*_",PathwaysPair2)
+  
+  #rownames(scoreMatrix)<- gsub("-", "", PathwaysPair2)
+  
+  rownames(scoreMatrix) <-PathwaysPair
+  
+  #rownames(scoreMatrix) <- gsub("_(human)", "", PathwaysPair)
+  
+  
+  
+  #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
+  #DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
+  #DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
+  #rownames(DataMatrix)<-DataMatrix$new.col
+  #DataMatrix$new.col<-NULL
+  
+  tDataMatrix<-as.data.frame(t(scoreMatrix))
+  #tDataMatrix$Target[,1]<-0
+  
+  tDataMatrix<-cbind(Target=0,tDataMatrix )
 
-  tDataMatrix$Target<-0
+  
+
+  
+  
   tum<-intersect(rownames(tDataMatrix),tumour)
   nor<-intersect(rownames(tDataMatrix),normal)
-  tDataMatrix$
+  #tDataMatrix$
     
   Dataset_g1<-tDataMatrix[nor,]
   Dataset_g3<- tDataMatrix[tum,]
@@ -412,29 +387,33 @@ svm_classification<-function(TCGA_matrix,tumour,normal,nfs){
 #training=read.table('C:/Users/UserInLab05/Desktop/trai.txt',header = TRUE)
 #testset=read.table('C:/Users/UserInLab05/Desktop/test.txt',header = TRUE)
 
-  #Dataset_g1 <- Data_CANCER_mRNA_tumor_HighStage[Data_CANCER_mRNA_tumor_HighStage$Target == 0, ]
-#Dataset_g3 <- Data_CANCER_mRNA_tumor_HighStage[Data_CANCER_mRNA_tumor_HighStage$Target == 1, ]
+  Dataset_g1$Target <- 0
+  Dataset_g3$Target<-1
+#Dataset_g3 <- Dataset_g3[Dataset_g3$Target <- 1, ]
   
-tab_g1_training <- sample(Dataset_g1$ID,round(nrow(Dataset_g1) / 100 * nfs ))
-tab_g3_training <- sample(Dataset_g3$ID,round(nrow(Dataset_g3) / 100 * nfs ))
-tab_g1_testing <- as.factor(setdiff(Dataset_g1$ID,tab_g1_training))
-tab_g3_testing <- as.factor(setdiff(Dataset_g3$ID,tab_g3_training))
+tab_g1_training <- sample(rownames(Dataset_g1),round(nrow(Dataset_g1) / 100 * nfs ))
+tab_g3_training <- sample(rownames(Dataset_g3),round(nrow(Dataset_g3) / 100 * nfs ))
+tab_g1_testing <- setdiff(rownames(Dataset_g1),tab_g1_training)
+tab_g3_testing <- setdiff(rownames(Dataset_g3),tab_g3_training)
 
-FR<-intersect(Dataset_g1$ID,tab_g1_training)
-rownames(Dataset_g1)<-Dataset_g1$ID
+FR<-intersect(rownames(Dataset_g1),tab_g1_training)
+
+#rownames(Dataset_g1)<-Dataset_g1[,1]
 G1<-Dataset_g1[FR,]
-FR1<-intersect(Dataset_g3$ID,tab_g3_training)
-rownames(Dataset_g3)<-Dataset_g3$ID
+
+FR1<-intersect(rownames(Dataset_g3),tab_g3_training)
+#rownames(Dataset_g3)<-Dataset_g3$ID
+
 G3<-Dataset_g3[FR1,]
 training<-rbind(G1,G3)
 
-inter1<-intersect(Dataset_g1$ID,tab_g1_testing)
-rownames(Dataset_g1)<-Dataset_g1$ID
+inter1<-intersect(rownames(Dataset_g1),tab_g1_testing)
+#rownames(Dataset_g1)<-Dataset_g1$ID
 
 G1_testing<-Dataset_g1[inter1,]
 
-inter2<-intersect(Dataset_g3$ID,tab_g3_testing)
-rownames(Dataset_g3)<-Dataset_g3$ID
+inter2<-intersect(rownames(Dataset_g3),tab_g3_testing)
+#rownames(Dataset_g3)<-Dataset_g3$ID
 G3_testing<-Dataset_g3[inter2,]
 
 testing<-rbind(G1_testing,G3_testing)
@@ -442,11 +421,23 @@ testing<-rbind(G1_testing,G3_testing)
 ## split data into a training (2/3) and test set (1/3)
 
 #t<-training[,c(1,3)]
-training[,2]<-NULL
+#training$Target<-NULL
+
 x <- subset(training, select=-Target)
 y <- training$Target
-testing[,2]<-NULL
+#testing[,2]<-NULL
 z<-subset(testing, select=-Target)
+
+
+
+i <- sapply(x, is.factor)
+x[i] <- lapply(x[i], as.numeric)
+
+
+
+#z <- sapply(z, is.factor)
+#z[i] <- lapply(z[i], as.numeric)
+
 
 #z<-as.data.frame(z)
 
@@ -454,10 +445,14 @@ z<-subset(testing, select=-Target)
 
 zi<-testing$Target
 
+
+#colnames(training)<-c("Target","uno","due","tre")
+
+
 auc.df<-list()
 svm_model_after_tune_COMPL<-list()
 for( k in 2: ncol(training)){
-  #print(k)
+  print(colnames(training)[k])
   svm_tune <- tune(svm, train.x=x, train.y=y, 
                    kernel="radial", ranges=list(cost=10^(-1:2), gamma=c(.5,1,2)),cross=10)
   svm_model_after_tune <- svm(Target ~ ., data=training[,c(1,k)], kernel="radial", cost=svm_tune$best.parameters[1], gamma=svm_tune$best.parameters[2],cross=10,probability = TRUE)

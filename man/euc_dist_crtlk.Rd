@@ -18,13 +18,6 @@ a matrix value for each pathway
 euc_dist_crtlk creates a matrix with euclidean distance for pairwise pathways
 }
 \examples{
-path<-getKEGGdata(KEGG_path="Transcript")
-cancer <- "TCGA-BRCA"
-PlatformCancer <- "Illumina HiSeq"
-tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-                                       patha = "exampleData")
-score_euc_dist<-euc_dist_crtlk(TCGA_matrix,path)
+score_euc_dist<-euc_dist_crtlk(dataFilt=BRCA_rnaseqv2,path)
 }
 

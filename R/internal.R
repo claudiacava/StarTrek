@@ -408,3 +408,15 @@ return(mer)
 }
 
 
+SelectedSample <- function(Dataset,typesample){
+  if( typesample =="tumor"){
+    Dataset <- Dataset[,which( as.numeric(substr(colnames(Dataset), 14, 15)) == 01) ]
+  }
+  
+  if( typesample =="normal"){
+    Dataset <- Dataset[,which( as.numeric(substr(colnames(Dataset), 14, 15)) >= 10) ]
+  }
+  
+  return(Dataset)
+  
+}
