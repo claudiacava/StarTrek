@@ -7,7 +7,7 @@
 #' @importFrom AnnotationDbi mappedkeys as.list
 #' @return dataframe with human pathway data
 #' @examples
-#' path<-getKEGGdata(KEGG_path="nerv_syst")
+#' path<-getKEGGdata(KEGG_path="Transcript")
 getKEGGdata<-function(KEGG_path=NULL){
 
 if (KEGG_path=="Carb_met") {
@@ -463,7 +463,7 @@ return(data_pr_shar_pro)
 #' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
 #' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
 #'                                        patha = "exampleData")
-get_TCGAdata<-function(cancer,PlatformCancer,tumour,normal,patha = "exampleData"){
+get_TCGAdata<-function(cancer,PlatformCancer,tumour,normal,patha){
 dataType <- "normalized_results"  
 query <- GDCquery(project = cancer,
                   data.category = "Gene expression",

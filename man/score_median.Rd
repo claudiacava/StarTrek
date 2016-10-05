@@ -18,6 +18,6 @@ a matrix value for each pathway
 score_median creates a matrix with a summarized value for each pathway
 }
 \examples{
-med<-score_median(dataFilt=BRCA_rnaseqv2,path)
+med<-score_median(dataFilt=Data_CANCER_normUQ_filt,path)
 }
 

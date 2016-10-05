@@ -93,7 +93,7 @@ list_path_net<-function(net_type,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_mean<-average(dataFilt=BRCA_rnaseqv2,path)
+#' score_mean<-average(dataFilt=Data_CANCER_normUQ_filt,path)
 average<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
   #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
@@ -128,7 +128,7 @@ return(PEAmatrix)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' med<-score_median(dataFilt=BRCA_rnaseqv2,path)
+#' med<-score_median(dataFilt=Data_CANCER_normUQ_filt,path)
 score_median<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
   #DataMatrix[ , "new.col"] <- gsub("\\|.*", "", rownames(DataMatrix))
@@ -165,7 +165,7 @@ score_median<-function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_tau_dist<-tau_dist(dataFilt=BRCA_rnaseqv2,path)
+#' score_tau_dist<-tau_dist(dataFilt=Data_CANCER_normUQ_filt,path)
 tau_dist <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   datam = as.matrix(PEAmatrix)
@@ -183,7 +183,7 @@ tau_dist <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_euc_dist<-euc_dist_crtlk(dataFilt=BRCA_rnaseqv2,path)
+#' score_euc_dist<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
 euc_dist_crtlk <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -209,7 +209,7 @@ euc_dist_crtlk <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' stand_dev<-st_dv(dataFilt=BRCA_rnaseqv2,pathway=path)
+#' stand_dev<-st_dv(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 st_dv<-function(dataFilt,pathway){
 DataMatrix<-dataFilt
 
@@ -223,24 +223,26 @@ PEAmatrix_sd <- matrix( 0, ncol(pathway),ncol(DataMatrix))
 rownames(PEAmatrix_sd) <- colnames(pathway)
 colnames(PEAmatrix_sd) <-  colnames(DataMatrix)
 for ( k in 1: nrow(PEAmatrix_sd)){
+  print(colnames(pathway)[k])
   currentPathway <- colnames(pathway)[k]
   currentPathway_genes_list_common <- intersect( rownames(DataMatrix), currentPathway_genes<-pathway[,k])
   currentPathway_genes_list_commonMatrix <- DataMatrix[currentPathway_genes_list_common,]
   stdev<-apply(currentPathway_genes_list_commonMatrix,2,sd) #deviazione standard dei pathway
-  PEAmatrix_sd[k,] <- stdev}
+  PEAmatrix_sd[k,] <- stdev
+  }
 return(PEAmatrix_sd)
 }
 
 
 
 #' @title For TCGA data get human pathway data and creates a measure of standard deviations among pathways 
-#' @description st_dv creates a matrix with standard deviation for pathways  
+#' @description dev_std_crtlk creates a matrix with standard deviation for pathways  
 #' @param dataFilt TCGA matrix
 #' @param pathway pathway data
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' cross_talk_st_dv<-dev_std_crtlk(dataFilt=BRCA_rnaseqv2,pathway=path)
+#' cross_talk_st_dv<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 dev_std_crtlk<-function(dataFilt,pathway){
 PEAmatrix_sd<-st_dv(dataFilt,pathway)
 df=combn(rownames(PEAmatrix_sd),2) 
@@ -266,7 +268,7 @@ return(somma_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=BRCA_rnaseqv2,pathway=path)
+#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ds_score_crtlk<-function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -309,6 +311,8 @@ d<-hamming.distance(as.matrix(alt))
 return(d)}
 
 
+
+
 #' @title SVM classification for each feature
 #' @description svm class creates a list with auc value  
 #' @param TCGA_matrix gene expression matrix
@@ -321,18 +325,28 @@ return(d)}
 #' @importFrom  grDevices rainbow
 #' @return a symmetric matrix value with a distance among pathways 
 #' @examples
-#' tumo<-SelectedSample(Dataset=BRCA_rnaseqv2,typesample="tumor")[,1:30]
-#' norm<-SelectedSample(Dataset=BRCA_rnaseqv2,typesample="normal")[,1:30]
-#' score_euc_dist<-euc_dist_crtlk(dataFilt=BRCA_rnaseqv2,path)
+#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
+#' norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100]
+#' score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
 #' nf <- 60
-#' res_class<-svm_classification(TCGA_matrix=BRCA_rnaseqv2,nfs=nf,normal=colnames(norm),tumour=colnames(tumo))
+#' res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
+#' normal=colnames(norm),tumour=colnames(tumo))
 svm_classification<-function(TCGA_matrix,tumour,normal,nfs){
   #library("e1071")
   #library(ROCR)
+  
+  
   dataFilt<-TCGA_matrix
-  DataMatrix<-dataFilt
+  DataMatrix <-dataFilt
   
   scoreMatrix <- as.data.frame(DataMatrix[,3:ncol(DataMatrix)])
+  
+  scoreMatrix <-as.data.frame(scoreMatrix)
+  for( i in 1: ncol(scoreMatrix)){
+    scoreMatrix[,i] <- as.numeric(as.character(scoreMatrix[,i]))
+  }
+  
+  
   DataMatrix[,1] <- gsub(" ", "_", DataMatrix[,1])
   d<-sub('_-_Homo_sapiens_*', '', DataMatrix[,1])
   #d_pr<-sub(')*', '', DataMatrix[,1])
@@ -418,10 +432,23 @@ G3_testing<-Dataset_g3[inter2,]
 
 testing<-rbind(G1_testing,G3_testing)
 
+
+
+
+
+
+
+
+
+
+
+
+
 ## split data into a training (2/3) and test set (1/3)
 
 #t<-training[,c(1,3)]
 #training$Target<-NULL
+
 
 x <- subset(training, select=-Target)
 y <- training$Target
@@ -429,10 +456,20 @@ y <- training$Target
 z<-subset(testing, select=-Target)
 
 
+#x <-as.data.frame(x)
+#for( i in 1: ncol(x)){
+ # x[,i] <- as.numeric(as.character(x[,i]))
+#}
 
-i <- sapply(x, is.factor)
-x[i] <- lapply(x[i], as.numeric)
 
+
+#z <-as.data.frame(z)
+#for( i in 1: ncol(z)){
+ # z[,i] <- as.numeric(as.character(z[,i]))
+#}
+
+
+#x<-round(x,2)
 
 
 #z <- sapply(z, is.factor)
@@ -445,6 +482,10 @@ x[i] <- lapply(x[i], as.numeric)
 
 zi<-testing$Target
 
+#i <- sapply(z, is.factor)
+#z[i] <- lapply(z[i], as.numeric)
+
+
 
 #colnames(training)<-c("Target","uno","due","tre")
 
@@ -455,12 +496,18 @@ for( k in 2: ncol(training)){
   print(colnames(training)[k])
   svm_tune <- tune(svm, train.x=x, train.y=y, 
                    kernel="radial", ranges=list(cost=10^(-1:2), gamma=c(.5,1,2)),cross=10)
-  svm_model_after_tune <- svm(Target ~ ., data=training[,c(1,k)], kernel="radial", cost=svm_tune$best.parameters[1], gamma=svm_tune$best.parameters[2],cross=10,probability = TRUE)
-  #summary(svm_model_after_tune)
+  print(svm_tune)
+  
+  svm_model_after_tune <- svm(Target ~ ., data=training[,c(1,k)], kernel="radial", cost=svm_tune$best.parameters$cost, gamma=svm_tune$best.parameters$gamma,cross=10,probability = TRUE)
+  
+  
+  #svm_model_after_tune <- svm(Target ~ ., data=training[,c(1,k)], kernel="radial", cost=svm_tune$best.parameters[1], gamma=svm_tune$best.parameters[2],cross=10,probability = TRUE)
+  summary(svm_model_after_tune)
 
   j=k-1
   z2=z[,j]
   z3<-as.data.frame(z2)
+  #rownames(z3)<-rownames(z)
   #colnames(z3)<-as.character(paste("X",j,sep = ""))
   colnames(z3)<-colnames(z)[j]
   #classifiersMatrix <- c(classifiersMatrix,svm_model_after_tune)

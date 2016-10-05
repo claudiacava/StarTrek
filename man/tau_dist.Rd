@@ -18,6 +18,6 @@ a matrix value for each pathway
 tau_dist creates a matrix with tau distance for pairwise pathways
 }
 \examples{
-score_tau_dist<-tau_dist(dataFilt=BRCA_rnaseqv2,path)
+score_tau_dist<-tau_dist(dataFilt=Data_CANCER_normUQ_filt,path)
 }
 

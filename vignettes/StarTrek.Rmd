@@ -427,7 +427,7 @@ path<-getKEGGdata(KEGG_path="KEGG_path")
 
 The following code is an example to download the pathways involved in energy metabolism:
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 path<-getKEGGdata(KEGG_path="Transcript")
 ```
 
@@ -443,7 +443,7 @@ The network category can be filtered using the following parameters:
 * **SHpd**  Shared_protein_domains 
 
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 netw<-getNETdata(network="SHpd")
 ```
 
@@ -452,11 +452,11 @@ You can easily search TCGA data using the `get_TCGAdata` function.
 The TCGA data can be selected using the parameters from `TCGAbiolinks` package. 
 
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 cancer <- "TCGA-BRCA"
 PlatformCancer <- "Illumina HiSeq"
-tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07")
+normal<-c("TCGA-BH-A209-11A-42R-A157-07") 
 TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
                                         patha = "exampleData")
 
@@ -477,7 +477,7 @@ netpath<-path_net(pathway=path,net_type=netw)
 The function `list_path_net` creates a list of interacting genes for each pathway. Interacting genes are genes belonging to the same pathway and the interaction is given from network chosen by the user, according the paramenters of the function `getNETdata`.
 The output will be a list of genes belonging to the same pathway and those having an interaction in the network.  
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 list_path<-list_path_net(net_type=netw,pathway=path)
 ```
 
@@ -486,15 +486,15 @@ list_path<-list_path_net(net_type=netw,pathway=path)
 ## `average`: Average of genes for each pathway starting from a matrix of gene expression 
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `average` creates an average matrix of gene expression for each pathway:
 
-```{r, eval = TRUE}
-score_mean<-average(dataFilt=TCGA_matrix,pathway=path)
+```{r, eval = FALSE}
+score_mean<-average(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 ## `score_median`: Median of genes for each pathway starting from a matrix of gene expression 
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `score_median` creates a median matrix of gene expression for each pathway:
 
-```{r, eval = TRUE}
-med<-score_median(TCGA_matrix,path)
+```{r, eval = FALSE}
+med<-score_median(Data_CANCER_normUQ_filt,path)
 ```
 
 
@@ -502,8 +502,8 @@ med<-score_median(TCGA_matrix,path)
 ## `st_dv`: Standard deviations of genes for each pathway starting from a matrix of gene expression 
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `st_dv` creates a standard deviation matrix of gene expression for each pathway:
 
-```{r, eval = TRUE}
-score_st_dev<-st_dv(dataFilt=TCGA_matrix,pathway=path)
+```{r, eval = FALSE}
+score_st_dev<-st_dv(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 
@@ -514,7 +514,7 @@ score_st_dev<-st_dv(dataFilt=TCGA_matrix,pathway=path)
 ## `hamm_dist`: Hamming distance for cross-talk measure
 Starting from a matrix of pathway data (rows are genes and columns are pathways) the function `hamm_dist` creates a distance matrix for pairwise pathway based on the common genes among pathways.
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 hamm_distance<-hamm_dist(list_pat=list_path)
 ```
 
@@ -522,8 +522,8 @@ hamm_distance<-hamm_dist(list_pat=list_path)
 ## `tau_dist`: TAU distance for cross-talk measure
 Starting from a matrix of pathway data (rows are values of activity pathway and columns are samples) the function `tau_dist` creates a distance matrix for pairwise pathway based on TAU distance.
 
-```{r, eval = TRUE}
-score_tau_dist<-tau_dist(TCGA_matrix,path)
+```{r, eval = FALSE}
+score_tau_dist<-tau_dist(Data_CANCER_normUQ_filt,path)
 ```
 
 
@@ -532,23 +532,23 @@ score_tau_dist<-tau_dist(TCGA_matrix,path)
 ## `euc_dist_crtlk`: Euclidean distance for cross-talk measure
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `euc_dist_crtlk` creates an euclidean distance matrix of gene expression for pairwise pathway.
 
-```{r, eval = TRUE}
-score_euc_dist_crtlkance<-euc_dist_crtlk(dataFilt=TCGA_matrix,pathway=path)
+```{r, eval = FALSE}
+score_euc_dist_crtlkance<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 ## `dev_std_crtlk`: Sum of standard deviations for cross-talk measure
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `dev_std_crtlk` creates a standard deviation matrix of gene expression for pairwise pathway.
 
-```{r, eval = TRUE}
-cross_talk_st_dv<-dev_std_crtlk(dataFilt=TCGA_matrix,pathway=path)
+```{r, eval = FALSE}
+cross_talk_st_dv<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 ## `ds_score_crtlk`: Discriminating score for cross-talk measure
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `ds_score_crtlk` creates an discriminating score matrix for pairwise pathway as measure of cross-talk. Discriminating score is given by |M1-M2|/S1+S2 where M1 and M2 are mean and standard deviation of expression levels of genes in a pathway 1 and and in a pathway 2 . 
 
 
-```{r, eval = TRUE}
-cross_talk_st_dv<-ds_score_crtlk(dataFilt=TCGA_matrix,pathway=path)
+```{r, eval = FALSE}
+cross_talk_st_dv<-ds_score_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 
@@ -559,14 +559,11 @@ cross_talk_st_dv<-ds_score_crtlk(dataFilt=TCGA_matrix,pathway=path)
 This function is used to find the interacting pathways that are altered in a particular pathology in terms of Area Under Curve (AUC).
 
 ```{r, eval = FALSE}
-cancer <- "TCGA-BRCA"
-PlatformCancer <- "Illumina HiSeq"
-tumo<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-norm<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-TCGA_data<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-                                        patha = "exampleData")
- nf <- 60
- res_class<-svm_classification(TCGA_matrix=TCGA_data,nfs=nf,normal=norm,tumour=tumo)
+tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
+norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100]
+score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
+nf <- 60
+res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(norm),tumour=colnames(tumo))
 ```
 
 ******

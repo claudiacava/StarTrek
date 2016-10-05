@@ -408,6 +408,15 @@ return(mer)
 }
 
 
+
+#' @title Select the class of TCGA data
+#' @description select two labels from ID barcode
+#' @param Dataset gene expression matrix
+#' @param typesample the labels of the samples (e.g. tumor,normal)
+#' @export
+#' @return a gene expression matrix of the samples with specified label
+#' @examples
+#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
 SelectedSample <- function(Dataset,typesample){
   if( typesample =="tumor"){
     Dataset <- Dataset[,which( as.numeric(substr(colnames(Dataset), 14, 15)) == 01) ]
@@ -420,3 +429,5 @@ SelectedSample <- function(Dataset,typesample){
   return(Dataset)
   
 }
+
+

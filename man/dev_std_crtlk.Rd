@@ -15,9 +15,9 @@ dev_std_crtlk(dataFilt, pathway)
 a matrix value for each pathway
 }
 \description{
-st_dv creates a matrix with standard deviation for pathways
+dev_std_crtlk creates a matrix with standard deviation for pathways
 }
 \examples{
-cross_talk_st_dv<-dev_std_crtlk(dataFilt=BRCA_rnaseqv2,pathway=path)
+cross_talk_st_dv<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 }
 

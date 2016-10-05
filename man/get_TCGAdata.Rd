@@ -4,7 +4,7 @@
 \alias{get_TCGAdata}
 \title{Get TCGA data.}
 \usage{
-get_TCGAdata(cancer, PlatformCancer, tumour, normal, patha = "exampleData")
+get_TCGAdata(cancer, PlatformCancer, tumour, normal, patha)
 }
 \arguments{
 \item{cancer}{cancer type, See TCGAbiolinks package}
