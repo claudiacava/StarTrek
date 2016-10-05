@@ -84,30 +84,24 @@ references:
 
 # Introduction 
 
-In this vignette, we demonstrate the application of `StarTrek` as  tool for pathways analysis integrating different data types .  For basic use of the `StarTrek` package,  please refer to the vignette Working with StarTrek package.
+In this vignette, we demonstrate the application of `StarTrek` as  tool for pathways analysis integrating different data types.  For basic use of the `StarTrek` package,  please refer to the vignette Working with StarTrek package.
 
 In many cases, `StarTrek` is used as tool to measure pathway activity and pathway cross-talk.  However, `StarTrek`
-can also be combined with other tools (within or out of the scope of R and Bioconductor [Gentleman et al ., 2004, Carey et al., 2005]), to build  exible analysis pipelines. In this vignette we demonstrate the cooperation between `StarTrek` and other tools with
-several examples.
-# Installation
+can also be combined with other tools (within or out of the scope of R and Bioconductor [Gentleman et al ., 2004, Carey et al., 2005]), to build  exible analysis pipelines. In this vignette we demonstrate the cooperation between `StarTrek` and other tools with several examples.
+
+# Case Study n°1
 
 To install use the code below.
 
 ```{r, eval = FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("SpidermiR")
+path<-getKEGGdata(KEGG_path="Carb_met")
+tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
+norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100]
+score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
+nf <- 60
+res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(norm),tumour=colnames(tumo))
 ```
 
-
-
-# `SpidermiRquery`: Searching network 
-
-
-You can easily search GeneMania data using the `SpidermiRquery` function.
-
-
-## `SpidermiRquery_species`: Searching by species
-The user can query the species supported by GeneMania, using the function SpidermiRquery_species:
 
 
 # References

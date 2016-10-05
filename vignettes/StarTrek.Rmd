@@ -363,7 +363,7 @@ devtools::load_all(".")
 
 Motivation: 
 New technologies have made possible to identify marker gene signatures. However, gene expression-based signatures present some limitations because they do not consider metabolic role of the genes and are affected by genetic heterogeneity across patient cohorts. Considering the activity of entire pathways rather than the expression levels of individual genes can be a way to exceed these limits.
-This tool `StarTrek` presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network data. New measures are under development.  
+This tool `StarTrek` presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network and TCGA data. New measures are under development.  
 
 # Installation
 
@@ -556,7 +556,8 @@ cross_talk_st_dv<-ds_score_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 
 ## `svm_classification`: SVM classification
 
-This function is used to find the interacting pathways that are altered in a particular pathology in terms of Area Under Curve (AUC).
+Given the substantial difference in the activities of many pathways between two classes (e.g. normal and cancer), we examined the effectiveness to classify the classes based on their pairwise pathway profiles. 
+This function is used to find the interacting pathways that are altered in a particular pathology in terms of Area Under Curve (AUC).AUC was estimated by cross-validation method (k-fold cross-validation, k=10).It randomly selected some fraction of TCGA data (e.g. nf= 60; 60% of original dataset) to form the training set and then assigned the rest of the points to the testing set (40% of original dataset). For each pairwise pathway the user can obtain using the methods mentioned above a score matrix ( e.g.dev_std_crtlk ) and can  focus on the pairs of pathways able to differentiate a particular subtype with respect to the normal type.
 
 ```{r, eval = FALSE}
 tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
