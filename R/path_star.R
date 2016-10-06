@@ -496,13 +496,13 @@ for( k in 2: ncol(training)){
   print(colnames(training)[k])
   svm_tune <- tune(svm, train.x=x, train.y=y, 
                    kernel="radial", ranges=list(cost=10^(-1:2), gamma=c(.5,1,2)),cross=10)
-  print(svm_tune)
+  #print(svm_tune)
   
   svm_model_after_tune <- svm(Target ~ ., data=training[,c(1,k)], kernel="radial", cost=svm_tune$best.parameters$cost, gamma=svm_tune$best.parameters$gamma,cross=10,probability = TRUE)
   
   
   #svm_model_after_tune <- svm(Target ~ ., data=training[,c(1,k)], kernel="radial", cost=svm_tune$best.parameters[1], gamma=svm_tune$best.parameters[2],cross=10,probability = TRUE)
-  summary(svm_model_after_tune)
+  #summary(svm_model_after_tune)
 
   j=k-1
   z2=z[,j]
@@ -525,16 +525,20 @@ for( k in 2: ncol(training)){
   
   palette <- as.matrix(rainbow(ncol(z)))
   #print(j)
-  if (j > 1) {
+  if (j >1 & j < 6) {
     plot(svm.auc,col=palette[j], add=TRUE)
+    legend('bottomright', colnames(z), 
+           lty=1, col=palette, bty='n', cex=.90,pch = 20,ncol=1)
+    
+
   }
   else {
     plot(svm.auc, col=palette[j])
+
+    
   }
   
-  legend('bottomright', colnames(z), 
-         lty=1, col=palette, bty='n', cex=.90,pch = 20,ncol=1)
-  
+
   
 }
 names(auc.df) <- colnames(z)

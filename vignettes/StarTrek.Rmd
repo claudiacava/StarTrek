@@ -452,7 +452,7 @@ You can easily search TCGA data using the `get_TCGAdata` function.
 The TCGA data can be selected using the parameters from `TCGAbiolinks` package. 
 
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 cancer <- "TCGA-BRCA"
 PlatformCancer <- "Illumina HiSeq"
 tumour<-c("TCGA-AO-A0JI-01A-21R-A056-07")
