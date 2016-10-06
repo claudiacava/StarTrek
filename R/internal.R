@@ -431,3 +431,77 @@ SelectedSample <- function(Dataset,typesample){
 }
 
 
+#' @title Select the class of TCGA data
+#' @description select two labels from ID barcode
+#' @param cutoff cut-off for AUC value
+#' @param auc.df list of AUC value
+select_class<-function(auc.df,cutoff){
+ds<-do.call("rbind", auc.df)
+tmp_ordered <- as.data.frame(ds[order(ds,decreasing=T),])
+colnames(tmp_ordered)<-'pathway'
+er<-as.data.frame(tmp_ordered$pathway>cutoff)
+ase<-tmp_ordered[tmp_ordered$pathway>cutoff,]
+rownames(er)<-rownames(tmp_ordered)
+er[,2]<-tmp_ordered$pathway
+lipid_metabolism<-er[1:length(ase),]
+return(lipid_metabolism)
+}
+
+
+
+
+#' @title Process matrix TCGA data after the selection of pairwise pathway
+#' @description processing gene expression matrix
+#' @param measure matrix with measure of cross-talk among pathways
+#' @param list_perf output of the function select_class 
+process_matrix<-function(measure,list_perf){
+scoreMatrix <- as.data.frame(measure[,3:ncol(measure)])
+for( i in 1: ncol(scoreMatrix)){
+  scoreMatrix[,i] <- as.numeric(as.character(scoreMatrix[,i]))
+}
+measure[,1] <- gsub(" ", "_", measure[,1])
+d<-sub('_-_Homo_sapiens_*', '', measure[,1])
+d_pr<- gsub("(human)", "", d, fixed="TRUE")
+d_pr <- gsub("_", "", d_pr)
+d_pr <- gsub("-", "", d_pr)
+measure[,2] <- gsub(" ", "_", measure[,2])
+d2<-sub('_-_Homo_sapiens_(human)*', '', measure[,2])
+d_pr2<- gsub("(human)", "", d2, fixed="TRUE")
+d_pr2 <- gsub("_", "", d_pr2)
+d_pr2 <- gsub("-", "", d_pr2)
+PathwaysPair <- paste( as.matrix(d_pr), as.matrix(d_pr2),sep="_" )
+rownames(scoreMatrix) <-PathwaysPair
+intera<-intersect(rownames(scoreMatrix),rownames(list_perf))
+path_bestlipd<-scoreMatrix[intera,]
+return(path_bestlipd)
+}
+
+
+
+process_matrix_cell_process<-function(measure_cell_process,list_perf){
+score__cell_grow_d <- as.data.frame(measure_cell_process[,3:ncol(measure_cell_process)])
+for( i in 1: ncol(score__cell_grow_d)){
+  score__cell_grow_d[,i] <- as.numeric(as.character(score__cell_grow_d[,i]))
+}
+
+measure_cell_process[,1] <- gsub(" ", "_", measure_cell_process[,1])
+d<-sub('_-_Homo_sapiens_*', '', measure_cell_process[,1])
+
+d_pr<- gsub("(human)", "", d, fixed="TRUE")
+d_pr <- gsub("_", "", d_pr)
+d_pr <- gsub("-", "", d_pr)
+
+measure_cell_process[,2] <- gsub(" ", "_", measure_cell_process[,2])
+d2<-sub('_-_Homo_sapiens_(human)*', '', measure_cell_process[,2])
+d_pr2<- gsub("(human)", "", d2, fixed="TRUE")
+d_pr2 <- gsub("_", "", d_pr2)
+d_pr2 <- gsub("-", "", d_pr2)
+
+PathwaysPair <- paste( as.matrix(d_pr), as.matrix(d_pr2),sep="_" )
+rownames(score__cell_grow_d) <-PathwaysPair
+return(score__cell_grow_d)
+}
+
+
+
+

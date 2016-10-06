@@ -431,6 +431,14 @@ The following code is an example to download the pathways involved in energy met
 path<-getKEGGdata(KEGG_path="Transcript")
 ```
 
+For example the group Transcript contains different pathways:
+
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::kable(colnames(path), digits = 2,
+             caption = "List of patwhays for the group Transcript",row.names = FALSE)
+```
+
 
 ## `getNETdata`: Searching network data for download 
 You can easily search human network data from GeneMania using the `getNETdata` function.

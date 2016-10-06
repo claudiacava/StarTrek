@@ -91,18 +91,104 @@ can also be combined with other tools (within or out of the scope of R and Bioco
 
 # Case Study n 1
 
-To install use the code below.
+The aim is the study of ratio among metabolism and cellular processes as growth and death in the cancer. 
 
-```{r, eval = FALSE}
-path<-getKEGGdata(KEGG_path="Carb_met")
+According to KEGG pathway there are different pathways involved in the metabolism that can group in six big sets as: Carbohydrate metabolism,  Energy metabolism,  Lipid metabolism,   Aminoacid metabolism,  Glycan biosynthesis and metabolism and Metabolism of cofactors and vitamins.
+
+In this case we wanto to see if there is a correlation between lipid metabolism and cellular processes. 
+
+First of all we download the set of pathways for the analyses.
+
+For lipid metabolism:
+
+```{r, echo = TRUE,eval = TRUE}
+require(StarTrek)
+path_lip<-getKEGGdata(KEGG_path="Lip_met")
+```
+
+The set of pathways for lipid metabolism includes:
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::kable(colnames(path_lip), digits = 2,
+             caption = "List of pathways in lipid metabolism",row.names = FALSE)
+```
+
+For cellular processes:
+
+```{r, echo = TRUE,eval = TRUE}
+pathcell_grow_d<-getKEGGdata(KEGG_path="cell_grow_d")
+```
+
+The set of pathways for cellular processes includes:
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::kable(colnames(pathcell_grow_d), digits = 2,
+             caption = "List of pathways in cellular processes",row.names = FALSE)
+```
+
+Then, we use the function `dev_std_crtlk` to create a measure of pathway cross-talk (pairwise pathway measure) using TCGA data (e.g. Data_CANCER_normUQ_filt).
+
+
+
+```{r, eval = TRUE}
+score_euc_dist_Lip_met<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path_lip)
+```
+
+The function `svm_classification` is used to obtain the best pairwise of pathway able to classify normal vs breast cancer. The training dataset was 60/100 of the data while the testing 40/100. In this analysis we considered the two classes from TCGA: normal and tumour. The output will be a list of AUC value for each pairwise meeasure of pathway.
+
+```{r, eval = TRUE}
 tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
 norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100]
-score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
-
 nf <- 60
-res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
+res_class<-svm_classification(TCGA_matrix=score_euc_dist_Lip_met,nfs=nf,
                               normal=colnames(norm),tumour=colnames(tumo))
 ```
+
+We considered the pairwise of pathways that obtained a performance of AUC major 0.80.
+
+```{r, eval = TRUE}
+better_perf<-select_class(auc.df=res_class,cutoff=0.80)
+```
+
+The function `process_matrix` creates a TCGA matrix with the measure of cross-talk previously used, only for the pairwise pathway  obtained by  `select_class`.
+
+```{r, eval = TRUE}
+matrix_best_perf<-process_matrix(measure=score_euc_dist_Lip_met,list_perf=better_perf)
+tumo_bestlipd<-SelectedSample(Dataset=matrix_best_perf,typesample="tumor")[,1:100]
+score_bestlipd<-colMeans(tumo_bestlipd) 
+```
+
+Now we want to create a pathawy cross-talk also for the pathways cellular processes.
+
+First of all we select the tumour samples and then create a matrix of distance using `dev_std_crtlk`
+
+
+```{r, eval = TRUE}
+tumo_cell_grow_d<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
+score_euc_dist_cell_grow_d<-dev_std_crtlk(dataFilt=tumo_cell_grow_d,pathcell_grow_d)
+```
+
+We process the matrix in order to harmonize the structure with `matrix_best_perf`.
+
+
+```{r, eval = TRUE}
+score__cell_grow_d<-process_matrix_cell_process(score_euc_dist_cell_grow_d)
+ score__cell_grow_d_mean<-colMeans(score__cell_grow_d) 
+```
+
+Now we want to see if there is a correlation among cellular processes and the lipid metabolism in breast cancer. 
+
+```{r, eval = TRUE}
+correlazione<-cor(score__cell_grow_d_mean,score_bestlipd)
+plot_matrix<-cbind(score__cell_grow_d_mean,score_bestlipd) 
+ 
+ corrplot(score__cell_grow_d, method="circle")
+```
+
+
+  
+
+  
 
 
 

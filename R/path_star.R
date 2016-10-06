@@ -323,7 +323,7 @@ return(d)}
 #' @importFrom e1071 tune svm 
 #' @importFrom ROCR prediction performance 
 #' @importFrom  grDevices rainbow
-#' @return a symmetric matrix value with a distance among pathways 
+#' @return a list with AUC value for pairwise pathway 
 #' @examples
 #' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
 #' norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100]
