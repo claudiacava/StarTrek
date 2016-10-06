@@ -88,13 +88,13 @@ In this vignette, we demonstrate the application of `StarTrek` as  tool for path
 
 `StarTrek` is used as tool to measure pathway activity and pathway cross-talk integrating TCGA data.
 
-# Case Study n 1
+# Case Study n 1 Relationship between metabolism and cell growth and death in cancer
 
-The aim is the study of ratio among metabolism and cellular processes as growth and death in the cancer. 
+The aim is the study of ratio among metabolism and cellular processes as cell growth and death in the cancer. 
 
 According to KEGG pathway there are different pathways involved in the metabolism that can group in six big sets as: Carbohydrate metabolism,  Energy metabolism,  Lipid metabolism,   Aminoacid metabolism,  Glycan biosynthesis and metabolism and Metabolism of cofactors and vitamins.
 
-In this case we wanto to see if there is a correlation between lipid metabolism and cellular processes. 
+In this case we want to see if there is a correlation between lipid metabolism and cellular processes in cancer. 
 
 First of all we download the set of pathways for the analyses.
 
@@ -104,7 +104,7 @@ For lipid metabolism:
 path_lip<-getKEGGdata(KEGG_path="Lip_met")
 ```
 
-The set of pathways for lipid metabolism includes:
+The set of pathways for lipid metabolism includes:Fatty acid biosynthesis, Fatty acid elongation, Fatty acid degradation, Synthesis and degradation of ketone bodies, Cutin, suberine and wax biosynthesis, Steroid biosynthesis, Primary bile acid biosynthesis, Secondary bile acid biosynthesis, Steroid hormone biosynthesis, Glycerolipid metabolism, Glycerophospholipid metabolism, Ether lipid metabolism, Sphingolipid metabolism, Arachidonic acid metabolism, Linoleic acid metabolism, alpha-Linolenic acid metabolism and Biosynthesis of unsaturated fatty acids.
 
 ```{r, eval = FALSE, echo = FALSE}
 knitr::kable(colnames(path_lip), digits = 2,
@@ -117,7 +117,7 @@ For cellular processes:
 pathcell_grow_d<-getKEGGdata(KEGG_path="cell_grow_d")
 ```
 
-The set of pathways for cellular processes includes:
+The set of pathways for cellular processes includes:Cell cycle, Apoptosis and p53 signaling pathway.
 
 ```{r, eval = FALSE, echo = FALSE}
 knitr::kable(colnames(pathcell_grow_d), digits = 2,

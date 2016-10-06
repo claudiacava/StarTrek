@@ -16,7 +16,7 @@ svm_classification(TCGA_matrix, tumour, normal, nfs)
 \item{nfs}{nfs split data into a training  and test set}
 }
 \value{
-a symmetric matrix value with a distance among pathways
+a list with AUC value for pairwise pathway
 }
 \description{
 svm class creates a list with auc value
