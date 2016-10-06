@@ -478,7 +478,7 @@ return(path_bestlipd)
 
 
 
-process_matrix_cell_process<-function(measure_cell_process,list_perf){
+process_matrix_cell_process<-function(measure_cell_process){
 score__cell_grow_d <- as.data.frame(measure_cell_process[,3:ncol(measure_cell_process)])
 for( i in 1: ncol(score__cell_grow_d)){
   score__cell_grow_d[,i] <- as.numeric(as.character(score__cell_grow_d[,i]))

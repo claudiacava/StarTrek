@@ -444,51 +444,6 @@ return(data_pr_shar_pro)
 }
 
 
-#' @title Get TCGA data.
-#' @description get_TCGAdata creates a data frame with network data. 
-#' Network category can be filtered among: physical interactions, co-localization, genetic interactions and shared protein domain.
-#' @param cancer cancer type, See TCGAbiolinks package
-#' @param PlatformCancer platform, type See TCGAbiolinks package
-#' @param tumour barcode samples with label for example tumour
-#' @param normal barcode samples with label for example normal
-#' @param patha directory name
-#' @export
-#' @importFrom SpidermiR SpidermiRquery_species SpidermiRquery_spec_networks SpidermiRdownload_net SpidermiRprepare_NET
-#' @importFrom TCGAbiolinks GDCquery GDCdownload GDCprepare TCGAanalyze_Filtering
-#' @return dataframe with gene-gene (or protein-protein interactions)
-#' @examples
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-AO-A0JI-01A-21R-A056-07")
-#' normal<-c("TCGA-A7-A13F-11A-42R-A12P-07") 
-#' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
-#'                                        patha = "exampleData")
-get_TCGAdata<-function(cancer,PlatformCancer,tumour,normal,patha){
-dataType <- "normalized_results"  
-query <- GDCquery(project = cancer,
-                  data.category = "Gene expression",
-                  data.type = "Gene expression quantification",
-                  platform = PlatformCancer, 
-                  file.type  = dataType, 
-                  barcode = c(tumour,normal),
-                  legacy = TRUE)
-GDCdownload(query,directory = patha)
 
-dataAssy <- GDCprepare(query,  directory = patha, summarizedExperiment = FALSE)
-
-dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy,
-                                  method = "quantile", 
-                                  qnt.cut =  0.25)  
-
-colnames(dataFilt) <- gsub("normalized_count_","",colnames(dataFilt))
-
-
-
-
-
-
-
-return(dataFilt)
-}
 
 

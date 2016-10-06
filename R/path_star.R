@@ -202,6 +202,8 @@ euc_dist_crtlk <- function(dataFilt,pathway){
 }
 
 
+
+
 #' @title For TCGA data get human pathway data and creates a measure of standard deviations among pathways 
 #' @description st_dv creates a matrix with standard deviation for pathways  
 #' @param dataFilt TCGA matrix
@@ -309,6 +311,10 @@ hamm_dist<-function(list_pat){
 alt<-t(list_pat)
 d<-hamming.distance(as.matrix(alt))
 return(d)}
+
+
+
+
 
 
 
