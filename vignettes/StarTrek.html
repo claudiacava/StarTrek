@@ -10,7 +10,7 @@
 
 <meta name="author" content="Claudia Cava, Isabella Castiglioni" />
 
-<meta name="date" content="2016-10-05" />
+<meta name="date" content="2016-10-06" />
 
 <title>Working with StarTrek package</title>
 
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title">Working with StarTrek package</h1>
 <h4 class="author"><em>Claudia Cava, Isabella Castiglioni</em></h4>
-<h4 class="date"><em>2016-10-05</em></h4>
+<h4 class="date"><em>2016-10-06</em></h4>
 </div>
 
 <h1>Contents</h1>
@@ -185,10 +185,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>You can easily search TCGA data using the <code>get_TCGAdata</code> function. The TCGA data can be selected using the parameters from <code>TCGAbiolinks</code> package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cancer &lt;-<span class="st"> &quot;TCGA-BRCA&quot;</span>
 PlatformCancer &lt;-<span class="st"> &quot;Illumina HiSeq&quot;</span>
-tumour&lt;-<span class="kw">c</span>(<span class="st">&quot;TCGA-BH-A0DL-01A-11R-A115-07&quot;</span>)
-normal&lt;-<span class="kw">c</span>(<span class="st">&quot;TCGA-BH-A209-11A-42R-A157-07&quot;</span>) 
+tumour&lt;-<span class="kw">c</span>(<span class="st">&quot;TCGA-AO-A0JI-01A-21R-A056-07&quot;</span>)
+normal&lt;-<span class="kw">c</span>(<span class="st">&quot;TCGA-A7-A13F-11A-42R-A12P-07&quot;</span>) 
 TCGA_matrix&lt;-<span class="kw">get_TCGAdata</span>(cancer,PlatformCancer,tumour,normal,
                                         <span class="dt">patha =</span> <span class="st">&quot;exampleData&quot;</span>)</code></pre></div>
+<pre><code>## Accessing GDC. This might take a while...</code></pre>
+<pre><code>## All samples have been already downloded</code></pre>
+<pre><code>## 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |================================                                 |  50%
+  |                                                                       
+  |=================================================================| 100%</code></pre>
 </div>
 </div>
 <div id="integration-data-integration-between-kegg-pathway-and-network-data" class="section level1">
@@ -281,7 +290,7 @@ res_class&lt;-<span class="kw">svm_classification</span>(<span class="dt">TCGA_m
 ## [8] methods   base     
 ## 
 ## other attached packages:
-## [1] StarTrek_0.99.4      miRNAtap_1.6.0       AnnotationDbi_1.34.4
+## [1] StarTrek_0.99.5      miRNAtap_1.6.0       AnnotationDbi_1.34.4
 ## [4] IRanges_2.6.1        S4Vectors_0.10.3     Biobase_2.32.0      
 ## [7] BiocGenerics_0.18.0  BiocStyle_2.0.3     
 ## 
@@ -421,34 +430,35 @@ res_class&lt;-<span class="kw">svm_classification</span>(<span class="dt">TCGA_m
 ## [133] dendextend_1.3.0                       
 ## [134] edgeR_3.14.0                           
 ## [135] miRNAtap.db_0.99.7                     
-## [136] kernlab_0.9-24                         
-## [137] Rsamtools_1.24.0                       
-## [138] gtools_3.5.0                           
-## [139] modeltools_0.2-21                      
-## [140] rjson_0.2.15                           
-## [141] nloptr_1.0.4                           
-## [142] nlme_3.1-128                           
-## [143] jsonlite_1.1                           
-## [144] limma_3.28.21                          
-## [145] lattice_0.20-34                        
-## [146] GGally_1.2.0                           
-## [147] KEGGREST_1.12.2                        
-## [148] httr_1.2.1                             
-## [149] DEoptimR_1.0-6                         
-## [150] survival_2.39-5                        
-## [151] png_0.1-7                              
-## [152] prabclus_2.2-6                         
-## [153] iterators_1.0.8                        
-## [154] Rgraphviz_2.16.0                       
-## [155] class_7.3-14                           
-## [156] stringi_1.1.1                          
-## [157] org.Hs.eg.db_3.3.0                     
-## [158] latticeExtra_0.6-28                    
-## [159] caTools_1.17.1                         
-## [160] memoise_1.0.0                          
-## [161] dplyr_0.5.0                            
-## [162] e1071_1.6-7                            
-## [163] ape_3.5</code></pre>
+## [136] curl_1.2                               
+## [137] kernlab_0.9-24                         
+## [138] Rsamtools_1.24.0                       
+## [139] gtools_3.5.0                           
+## [140] modeltools_0.2-21                      
+## [141] rjson_0.2.15                           
+## [142] nloptr_1.0.4                           
+## [143] nlme_3.1-128                           
+## [144] jsonlite_1.1                           
+## [145] limma_3.28.21                          
+## [146] lattice_0.20-34                        
+## [147] GGally_1.2.0                           
+## [148] KEGGREST_1.12.2                        
+## [149] httr_1.2.1                             
+## [150] DEoptimR_1.0-6                         
+## [151] survival_2.39-5                        
+## [152] png_0.1-7                              
+## [153] prabclus_2.2-6                         
+## [154] iterators_1.0.8                        
+## [155] Rgraphviz_2.16.0                       
+## [156] class_7.3-14                           
+## [157] stringi_1.1.1                          
+## [158] org.Hs.eg.db_3.3.0                     
+## [159] latticeExtra_0.6-28                    
+## [160] caTools_1.17.1                         
+## [161] memoise_1.0.0                          
+## [162] dplyr_0.5.0                            
+## [163] e1071_1.6-7                            
+## [164] ape_3.5</code></pre>
 </div>
 </div>
 </div>

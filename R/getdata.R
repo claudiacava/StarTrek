@@ -459,8 +459,8 @@ return(data_pr_shar_pro)
 #' @examples
 #' cancer <- "TCGA-BRCA"
 #' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+#' tumour<-c("TCGA-AO-A0JI-01A-21R-A056-07")
+#' normal<-c("TCGA-A7-A13F-11A-42R-A12P-07") 
 #' TCGA_matrix<-get_TCGAdata(cancer,PlatformCancer,tumour,normal,
 #'                                        patha = "exampleData")
 get_TCGAdata<-function(cancer,PlatformCancer,tumour,normal,patha){

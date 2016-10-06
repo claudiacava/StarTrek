@@ -1,8 +1,8 @@
 Package: StarTrek
 Type: Package
 Title: StarTrek
-Version: 0.99.5
-Date: 10-05-2016
+Version: 0.99.6
+Date: 10-06-2016
 Author: Claudia Cava,
     Isabella Castiglioni
 Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
