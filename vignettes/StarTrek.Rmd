@@ -421,13 +421,13 @@ ORGANISMAL SYSTEMS
 
 The following code is used to download all KEGG pathways and genes:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 path<-getKEGGdata(KEGG_path="KEGG_path")
 ```
 
 The following code is an example to download the pathways involved in energy metabolism:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 path<-getKEGGdata(KEGG_path="Transcript")
 ```
 
@@ -443,7 +443,7 @@ The network category can be filtered using the following parameters:
 * **SHpd**  Shared_protein_domains 
 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 netw<-getNETdata(network="SHpd")
 ```
 
