@@ -11,6 +11,9 @@ process_matrix(measure, list_perf)
 
 \item{list_perf}{output of the function select_class}
 }
+\value{
+a gene expression matrix for case study 1
+}
 \description{
 processing gene expression matrix
 }

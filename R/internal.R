@@ -435,9 +435,10 @@ SelectedSample <- function(Dataset,typesample){
 #' @description select two labels from ID barcode
 #' @param cutoff cut-off for AUC value
 #' @param auc.df list of AUC value
+#' @return a gene expression matrix with only pairwise pathway with a particular cut-off
 select_class<-function(auc.df,cutoff){
 ds<-do.call("rbind", auc.df)
-tmp_ordered <- as.data.frame(ds[order(ds,decreasing=T),])
+tmp_ordered <- as.data.frame(ds[order(ds,decreasing=TRUE),])
 colnames(tmp_ordered)<-'pathway'
 er<-as.data.frame(tmp_ordered$pathway>cutoff)
 ase<-tmp_ordered[tmp_ordered$pathway>cutoff,]
@@ -454,6 +455,7 @@ return(lipid_metabolism)
 #' @description processing gene expression matrix
 #' @param measure matrix with measure of cross-talk among pathways
 #' @param list_perf output of the function select_class 
+#' @return a gene expression matrix for case study 1
 process_matrix<-function(measure,list_perf){
 scoreMatrix <- as.data.frame(measure[,3:ncol(measure)])
 for( i in 1: ncol(scoreMatrix)){

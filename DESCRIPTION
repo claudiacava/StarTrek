@@ -1,8 +1,8 @@
 Package: StarTrek
 Type: Package
 Title: StarTrek
-Version: 0.99.11
-Date: 10-06-2016
+Version: 0.99.12
+Date: 10-07-2016
 Author: Claudia Cava,
     Isabella Castiglioni
 Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
@@ -13,7 +13,6 @@ Imports:
 	KEGGREST,
 	org.Hs.eg.db,
 	AnnotationDbi,
-	TCGAbiolinks,
 	e1071,
 	ROCR,
 	grDevices,

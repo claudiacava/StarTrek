@@ -340,19 +340,15 @@ return(d)}
 svm_classification<-function(TCGA_matrix,tumour,normal,nfs){
   #library("e1071")
   #library(ROCR)
-  
-  
+
   dataFilt<-TCGA_matrix
   DataMatrix <-dataFilt
-  
   scoreMatrix <- as.data.frame(DataMatrix[,3:ncol(DataMatrix)])
-  
   scoreMatrix <-as.data.frame(scoreMatrix)
   for( i in 1: ncol(scoreMatrix)){
     scoreMatrix[,i] <- as.numeric(as.character(scoreMatrix[,i]))
   }
-  
-  
+
   DataMatrix[,1] <- gsub(" ", "_", DataMatrix[,1])
   d<-sub('_-_Homo_sapiens_*', '', DataMatrix[,1])
   #d_pr<-sub(')*', '', DataMatrix[,1])
@@ -369,33 +365,14 @@ svm_classification<-function(TCGA_matrix,tumour,normal,nfs){
   
   PathwaysPair <- paste( as.matrix(d_pr), as.matrix(d_pr2),sep="_" )
   
-  #PathwaysPair2 <- gsub(" ", "_", PathwaysPair)
-  
-  #s<-gsub("*_",PathwaysPair2)
-  
-  #rownames(scoreMatrix)<- gsub("-", "", PathwaysPair2)
-  
   rownames(scoreMatrix) <-PathwaysPair
-  
-  #rownames(scoreMatrix) <- gsub("_(human)", "", PathwaysPair)
-  
-  
-  
-  #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
-  #DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]
-  #DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
-  #rownames(DataMatrix)<-DataMatrix$new.col
-  #DataMatrix$new.col<-NULL
+
   
   tDataMatrix<-as.data.frame(t(scoreMatrix))
   #tDataMatrix$Target[,1]<-0
   
   tDataMatrix<-cbind(Target=0,tDataMatrix )
 
-  
-
-  
-  
   tum<-intersect(rownames(tDataMatrix),tumour)
   nor<-intersect(rownames(tDataMatrix),normal)
   #tDataMatrix$
@@ -438,63 +415,12 @@ G3_testing<-Dataset_g3[inter2,]
 
 testing<-rbind(G1_testing,G3_testing)
 
-
-
-
-
-
-
-
-
-
-
-
-
-## split data into a training (2/3) and test set (1/3)
-
-#t<-training[,c(1,3)]
-#training$Target<-NULL
-
-
 x <- subset(training, select=-Target)
 y <- training$Target
 #testing[,2]<-NULL
 z<-subset(testing, select=-Target)
 
-
-#x <-as.data.frame(x)
-#for( i in 1: ncol(x)){
- # x[,i] <- as.numeric(as.character(x[,i]))
-#}
-
-
-
-#z <-as.data.frame(z)
-#for( i in 1: ncol(z)){
- # z[,i] <- as.numeric(as.character(z[,i]))
-#}
-
-
-#x<-round(x,2)
-
-
-#z <- sapply(z, is.factor)
-#z[i] <- lapply(z[i], as.numeric)
-
-
-#z<-as.data.frame(z)
-
-#colnames(z)<-"X2"
-
 zi<-testing$Target
-
-#i <- sapply(z, is.factor)
-#z[i] <- lapply(z[i], as.numeric)
-
-
-
-#colnames(training)<-c("Target","uno","due","tre")
-
 
 auc.df<-list()
 svm_model_after_tune_COMPL<-list()
@@ -543,8 +469,6 @@ for( k in 2: ncol(training)){
 
     
   }
-  
-
   
 }
 names(auc.df) <- colnames(z)

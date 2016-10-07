@@ -11,6 +11,9 @@ select_class(auc.df, cutoff)
 
 \item{cutoff}{cut-off for AUC value}
 }
+\value{
+a gene expression matrix with only pairwise pathway with a particular cut-off
+}
 \description{
 select two labels from ID barcode
 }
