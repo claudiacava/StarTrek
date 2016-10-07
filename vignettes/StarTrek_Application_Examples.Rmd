@@ -1,5 +1,5 @@
 ---
-title: "StarTreck:Application Examples"
+title: "StarTrek:Application Examples"
 author: Claudia Cava,  Isabella Castiglioni
 date: '`r Sys.Date()`'
 output: pdf_document
@@ -92,7 +92,7 @@ In this vignette, we demonstrate the application of `StarTrek` as  tool for path
 
 The aim is the study of ratio among metabolism and cellular processes as cell growth and death in the cancer. 
 
-According to KEGG pathway there are different pathways involved in the metabolism that can group in six big sets as: Carbohydrate metabolism,  Energy metabolism,  Lipid metabolism,   Aminoacid metabolism,  Glycan biosynthesis and metabolism and Metabolism of cofactors and vitamins.
+According to KEGG pathway there are different pathways involved in the metabolism that can be grouped in six big sets as: Carbohydrate metabolism,  Energy metabolism,  Lipid metabolism,   Aminoacid metabolism,  Glycan biosynthesis and metabolism and Metabolism of cofactors and vitamins.
 
 In this case we want to see if there is a correlation between lipid metabolism and cellular processes in cancer. 
 
@@ -156,7 +156,7 @@ tumo_bestlipd<-SelectedSample(Dataset=matrix_best_perf,typesample="tumor")[,1:10
 score_bestlipd<-colMeans(tumo_bestlipd) 
 ```
 
-Now we want to create a pathawy cross-talk also for the pathways cellular processes.
+Now we want to create a pathawy cross-talk also for the pathways of cellular processes.
 
 First of all we select the tumour samples and then create a matrix of distance using `dev_std_crtlk`
 
@@ -191,7 +191,10 @@ plot_matrix<-cbind(score__cell_grow_d_mean,score_bestlipd)
 
 # References
 
- Colaprico A, Cava C, Bertoli G, Bontempi G, Castiglioni I. Integrative
+Cava C,  Colaprico A,  Bertoli G, Bontempi G, Mauri G, Castiglioni I. 
+How interacting pathways are regulated by miRNAs in breast cancer subtypes. BMC Bioinformatics. 2016. In Press. 
+
+Colaprico A, Cava C, Bertoli G, Bontempi G, Castiglioni I. Integrative
 Analysis with Monte Carlo Cross-Validation Reveals miRNAs Regulating Pathways
 Cross-Talk in Aggressive Breast Cancer. Biomed Res Int. 2015;2015:831314. 
 

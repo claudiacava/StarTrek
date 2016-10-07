@@ -70,18 +70,17 @@ list_path_net<-function(net_type,pathway){
   n<-as.data.frame(fr)
   i <- sapply(n, is.factor) 
   n[i] <- lapply(n[i], as.character)
-  matrice <- matrix(0, nrow(n), ncol(pathway))
-  rownames(matrice) <- n[,1]
-  colnames(matrice)<- colnames(pathway)
-  for (j in  1:nrow(n)){
-   # k=1 
+  v=list()
     for (k in  1:ncol(pathway)){
-      if (length(intersect(n[j,],pathway[,k])!=0)){
-        matrice[j,k]<-n[j,]
+      if (length(intersect(n$fr,pathway[,k])!=0)){
+        print(colnames(pathway)[k])
+        aa<-intersect(n$fr,pathway[,k])
+        v[[k]]<-aa
+        names(v)[k]<-colnames(pathway)[k]
       }
     }
-  }
-  return(matrice)
+  
+  return(v)
 }
 
 
@@ -117,6 +116,22 @@ for ( k in 1: nrow(PEAmatrix)){
 }
 return(PEAmatrix)
 }
+
+
+#DataMatrix<-Data_CANCER_normUQ_filt
+#zz<-as.data.frame(rowMeans(DataMatrix))
+
+#v<-list()
+#for ( k in 1: ncol(path)){
+ # k=1
+#  currentPathway_genes_list_common <- intersect(rownames(zz), currentPathway_genes<-path[,k])
+  #currentPathway_genes_list_commonMatrix <- zz[currentPathway_genes_list_common,]
+  #rownames(currentPathway_genes_list_commonMatrix)<-currentPathway_genes_list_common
+ #v[[k]]<- currentPathway_genes_list_common
+
+
+#}  
+  
 
 
 
@@ -308,8 +323,19 @@ return(score)
 #' @examples
 #' hamm_distance<-hamm_dist(list_pat=list_path)
 hamm_dist<-function(list_pat){
-alt<-t(list_pat)
-d<-hamming.distance(as.matrix(alt))
+  
+  #nm <- list(1:8,3:8,1:5)
+  max_length <- max(sapply(list_pat,length))
+  p<-sapply(list_pat, function(x){
+    c(x, rep("", max_length - length(x)))
+  })
+  
+  #p[p == 0] <- " "
+  
+  #li<-do.call("rbind", list_pat)
+  
+  #alt<-t(li)
+d<-hamming.distance(as.matrix(t(p)))
 return(d)}
 
 

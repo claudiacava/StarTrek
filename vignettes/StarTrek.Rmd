@@ -421,11 +421,11 @@ ORGANISMAL SYSTEMS
 
 The following code is used to download all KEGG pathways and genes:
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 path<-getKEGGdata(KEGG_path="KEGG_path")
 ```
 
-The following code is an example to download the pathways involved in energy metabolism:
+The following code is an example to download the pathways involved in Transcription:
 
 ```{r, eval = TRUE}
 path<-getKEGGdata(KEGG_path="Transcript")
@@ -538,7 +538,7 @@ cross_talk_st_dv<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 ## `ds_score_crtlk`: Discriminating score for cross-talk measure
-Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `ds_score_crtlk` creates an discriminating score matrix for pairwise pathway as measure of cross-talk. Discriminating score is given by |M1-M2|/S1+S2 where M1 and M2 are mean and standard deviation of expression levels of genes in a pathway 1 and and in a pathway 2 . 
+Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `ds_score_crtlk` creates an discriminating score matrix for pairwise pathway as measure of cross-talk. Discriminating score is given by |M1-M2|/S1+S2 where M1 and M2 are mean and S1 and S2 standard deviation of expression levels of genes in a pathway 1 and and in a pathway 2 . 
 
 
 ```{r, eval = TRUE}
@@ -546,7 +546,7 @@ cross_talk_st_dv<-ds_score_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 
-# `Selection of pathway cross-talk`: Selection of the cross-talk pathway
+# `Selection of pathway cross-talk`: Selection of pathway cross-talk
 
 ## `svm_classification`: SVM classification
 
@@ -559,6 +559,7 @@ norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100
 score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
 nf <- 60
 res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(norm),tumour=colnames(tumo))
+
 ```
 
 ******
