@@ -84,15 +84,15 @@ list_path_net<-function(net_type,pathway){
 }
 
 
-#' @title Get human KEGG pathway data and a gene expression matrix we obtain a matrix with the .
-#' @description list_path_net creates a list of interacting genes for each human pathway.   
+#' @title Get human KEGG pathway data and a gene expression matrix we obtain a matrix with the gene expression for only pathways given in input .
+#' @description plotting_matrix creates a matrix of gene expression for pathways given by the user.   
 #' @param DataMatrix  gene expression matrix (eg.TCGA data)
 #' @param pathway  pathway data as provided by getKEGGdata
 #' @export
-#' @return a list of genes for each pathway (interacting genes belong to that pathway)
+#' @return a matrix for each pathway ( gene expression level belong to that pathway)
 #' @examples
-#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
-#' list_path_plot<-plotting_matrix(DataMatrix=tumo,pathway=path)
+#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
+#' list_path_plot<-plotting_matrix(DataMatrix=tumo[1:14000,],pathway=path)
 plotting_matrix<-function(DataMatrix,pathway) {
 zz<-as.data.frame(rowMeans(DataMatrix))
 v<-list()
@@ -118,6 +118,30 @@ PEAmatrix<-PEAmatrix[which(rowSums(PEAmatrix) > 0),]
 return(PEAmatrix)
 }
 
+dc<-cor(t(list_path_plot))
+qgraph(dc[1:20,1:20], vsize=7,minimum=0.9)
+#path<-path[which(rowSums(path) > 0),]
+
+
+zz<-as.data.frame(rowMeans(DataMatrix))
+v<-list()
+for ( k in 1: ncol(pathway)){
+  #k=2
+  if (length(intersect(rownames(zz),pathway[,k])!=0)){
+    print(colnames(path)[k])
+    currentPathway_genes_list_common <- intersect(rownames(zz), currentPathway_genes<-pathway[,k])
+    currentPathway_genes_list_commonMatrix <- as.data.frame(zz[currentPathway_genes_list_common,])
+    rownames(currentPathway_genes_list_commonMatrix)<-currentPathway_genes_list_common
+    
+    v[[k]]<- as.factor(currentPathway_genes_list_common)
+    names(v)[k]<-colnames(pathway)[k]
+  }
+}
+http://www.insular.it/tag/qgraph/
+
+
+qgraph(dc, vsize=5, minimum=0.5, groups=v, edge.label.cex=3)
+
 #big5efa <- factanal(list_path_plot), factors = , rotation = "promax", scores = "regression")
 #big5loadings <- loadings(big5efa)
 
@@ -133,10 +157,10 @@ return(PEAmatrix)
 #data(big5)
 #data(big5groups)
 
-#dc<-cor(t(list_path_plot))
 
-#qgraph(cor(t(list_path_plot)), minimum = 0.25, cut = 0.4, vsize = 1.5, groups = v, 
-#       legend = FALSE, borders = FALSE, posCol = "blue", negCol = "purple", labels = FALSE)
+
+qgraph(dc, minimum = 0.25, cut = 0.4, vsize = 1.5, groups =v , 
+       legend = FALSE, borders = FALSE, posCol = "blue", negCol = "purple", labels = FALSE)
 
 
 
@@ -401,8 +425,8 @@ return(d)}
 #' @importFrom  grDevices rainbow
 #' @return a list with AUC value for pairwise pathway 
 #' @examples
-#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
-#' norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100]
+#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
+#' norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:50]
 #' score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
 #' nf <- 60
 #' res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
