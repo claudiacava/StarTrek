@@ -154,8 +154,9 @@ select_path_transc<-function(Transcription){
 ac<-paste("RNA polymerase", species)
 ad<-paste("Basal transcription factors", species)
 ae<-paste("Spliceosome", species)
-
-mer<-c(ac,ad,ae)
+af<-paste("Transcription factors", species)
+ag<-paste("Transcription machinery", species)
+mer<-c(ac,ad,ae,af,ag)
 return(mer)
 }
 
@@ -168,8 +169,11 @@ ad<-paste("Aminoacyl-tRNA biosynthesis", species)
 ae<-paste("RNA transport", species)
 af<-paste("mRNA surveillance pathway", species)
 ag<-paste("Ribosome biogenesis in eukaryotes", species)
-
-mer<-c(ac,ad,ae,af,ag)
+ah<-paste("Ribosomal proteins", species)
+ai<-paste("Ribosome biogenesis", species)
+al<-paste("Transfer RNA biogenesis", species)
+am<-paste("Translation factors", species)
+mer<-c(ac,ad,ae,af,ag,ah,ai,al,am)
 return(mer)
 }
 
@@ -181,7 +185,11 @@ ae<-paste("SNARE interactions in vesicular transport", species)
 af<-paste("Ubiquitin mediated proteolysis", species)
 ag<-paste("Sulfur relay system", species)
 ah<-paste("RNA degradation", species)
-mer<-c(ac,ad,ae,af,ag,ah)
+ai<-paste("Chaperones and folding catalysts", species)
+al<-paste("SNAREs", species)
+am<-paste("Ubiquitin system", species)
+an<-paste("Proteasome", species)
+mer<-c(ac,ad,ae,af,ag,ah,ai,al,am,an)
 return(mer)
 }
 
@@ -197,8 +205,11 @@ af<-paste("Mismatch repair", species)
 ag<-paste("Homologous recombination", species)
 ah<-paste("Non-homologous end-joining", species)
 ai<-paste("Fanconi anemia pathway", species)
-
-mer<-c(ac,ad,ae,af,ag,ah,ai)
+al<-paste("DNA replication proteins", species)
+am<-paste("Chromosome", species)
+an<-paste("DNA repair and recombination", species)
+ao<-paste("proteins", species)
+mer<-c(ac,ad,ae,af,ag,ah,ai,al,am,an,ao)
 return(mer)
 }
 

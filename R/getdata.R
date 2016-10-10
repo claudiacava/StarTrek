@@ -7,7 +7,7 @@
 #' @importFrom AnnotationDbi mappedkeys as.list
 #' @return dataframe with human pathway data
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Transcript")
+#' path<-getKEGGdata(KEGG_path="Ener_met")
 getKEGGdata<-function(KEGG_path=NULL){
 
 if (KEGG_path=="Carb_met") {

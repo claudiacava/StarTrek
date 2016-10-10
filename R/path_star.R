@@ -84,7 +84,7 @@ list_path_net<-function(net_type,pathway){
 }
 
 
-#' @title Get human KEGG pathway data and a gene expression matrix we obtain a matrix with the gene expression for only pathways given in input .
+#' @title Get human KEGG pathway data and a gene expression matrix in order to obtain a matrix with the gene expression for only pathways given in input .
 #' @description plotting_matrix creates a matrix of gene expression for pathways given by the user.   
 #' @param DataMatrix  gene expression matrix (eg.TCGA data)
 #' @param pathway  pathway data as provided by getKEGGdata
@@ -92,8 +92,11 @@ list_path_net<-function(net_type,pathway){
 #' @return a matrix for each pathway ( gene expression level belong to that pathway)
 #' @examples
 #' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
-#' list_path_plot<-plotting_matrix(DataMatrix=tumo[1:14000,],pathway=path)
-plotting_matrix<-function(DataMatrix,pathway) {
+#' list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
+GE_matrix<-function(DataMatrix,pathway) {
+  path_name<-sub(' ', '_',colnames(pathway))
+d_pr<- gsub(" - Homo sapiens (human)", "", path_name, fixed="TRUE")
+colnames(pathway)<-d_pr
 zz<-as.data.frame(rowMeans(DataMatrix))
 v<-list()
 for ( k in 1: ncol(pathway)){
@@ -103,14 +106,13 @@ for ( k in 1: ncol(pathway)){
   currentPathway_genes_list_common <- intersect(rownames(zz), currentPathway_genes<-pathway[,k])
   currentPathway_genes_list_commonMatrix <- as.data.frame(zz[currentPathway_genes_list_common,])
   rownames(currentPathway_genes_list_commonMatrix)<-currentPathway_genes_list_common
-
   v[[k]]<- currentPathway_genes_list_common
   names(v)[k]<-colnames(pathway)[k]
   }
 }  
 PEAmatrix <- matrix( 0,nrow(DataMatrix),ncol(pathway))
-rownames(PEAmatrix) <- rownames(DataMatrix)
-colnames(PEAmatrix) <-  colnames(pathway)
+rownames(PEAmatrix) <- as.factor(rownames(DataMatrix))
+colnames(PEAmatrix) <-  as.factor(colnames(pathway))
 for (i in 1:length(v)){
 PEAmatrix[v[[i]],i]<-zz[v[[i]],]
 }
@@ -118,51 +120,64 @@ PEAmatrix<-PEAmatrix[which(rowSums(PEAmatrix) > 0),]
 return(PEAmatrix)
 }
 
-dc<-cor(t(list_path_plot))
-qgraph(dc[1:20,1:20], vsize=7,minimum=0.9)
-#path<-path[which(rowSums(path) > 0),]
 
 
+#' @title Get human KEGG pathway data and a gene expression matrix we obtain a matrix with the gene expression for only pathways given in input .
+#' @description plotting_matrix creates a matrix of gene expression for pathways given by the user.   
+#' @param DataMatrix  gene expression matrix (eg.TCGA data)
+#' @param pathway  pathway data as provided by getKEGGdata
+#' @param path_matrix  output of the function GE_matrix
+#' @export
+#' @importFrom qgraph qgraph 
+#' @return a plot for pathway cross talk
+#' @examples
+#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
+#' list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
+#' mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
+plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
 zz<-as.data.frame(rowMeans(DataMatrix))
 v<-list()
 for ( k in 1: ncol(pathway)){
-  #k=2
+  path_name<-sub(' ', '_',colnames(pathway))
+  d_pr<- gsub(" - Homo sapiens (human)", "", path_name, fixed="TRUE")
+  colnames(pathway)<-d_pr
   if (length(intersect(rownames(zz),pathway[,k])!=0)){
     print(colnames(path)[k])
     currentPathway_genes_list_common <- intersect(rownames(zz), currentPathway_genes<-pathway[,k])
     currentPathway_genes_list_commonMatrix <- as.data.frame(zz[currentPathway_genes_list_common,])
     rownames(currentPathway_genes_list_commonMatrix)<-currentPathway_genes_list_common
-    
     v[[k]]<- as.factor(currentPathway_genes_list_common)
     names(v)[k]<-colnames(pathway)[k]
   }
 }
-http://www.insular.it/tag/qgraph/
+vv<-list()
+dc<-cor(t(path_matrix))
+for ( k in 1: length(v)){
+currentPathway_genes_list_common <- intersect(rownames(dc), v[[k]])
+a<-match(currentPathway_genes_list_common,rownames(dc))
+vv[[k]]<- a
+names(vv)[k]<-colnames(pathway)[k]
+}
+
+r<-qgraph(dc, groups=vv, mar=c(1,1,1,1),minimum=0.6)
+return(r)
+}
+
+#a<-intersect(v$DNA_replication,v$Base_excision_repair)
+
+#b<-intersect(vv$DNA_replication,vv$Nucleotide_excision_repair)
+
+#c<-intersect(v$DNA_replication,v$`Non-homologous_end-joining`)
+#Q <- qgraph(mt, layout = "spring")
+#qgraph(mt, overlay = TRUE)
+#qgraph(cor(big5), groups=big5groups, edge.label.cex,mar=c(1,1,1,1),minimum=0.6)
+
+#library("psych")
+#big5pca <- principal(dc, 5, rotate = "promax")
 
 
-qgraph(dc, vsize=5, minimum=0.5, groups=v, edge.label.cex=3)
-
-#big5efa <- factanal(list_path_plot), factors = , rotation = "promax", scores = "regression")
-#big5loadings <- loadings(big5efa)
-
-#qgraph.loadings(big5loadings, groups = v, rotation = "promax", minimum = 0.2, 
- #               cut = 0.4, vsize = c(1.5, 15), borders = FALSE, vTrans = 200)
-
-
-#qgraph(list_path_plot, layout='spring', vsize=3)
-
-
-#groups = as.numeric(p)
-#library(qgraph)
-#data(big5)
-#data(big5groups)
-
-
-
-qgraph(dc, minimum = 0.25, cut = 0.4, vsize = 1.5, groups =v , 
-       legend = FALSE, borders = FALSE, posCol = "blue", negCol = "purple", labels = FALSE)
-
-
+#qgraph(big5pca, groups = vv, layout = "circle", rotation = "promax", 
+#       minimum = 0.2, cut = 0.4, vsize = c(1.5, 15), borders = FALSE, vTrans = 200)
 
 
 #' @title For TCGA data get human pathway data and creates a matrix with the average of genes for each pathway.
