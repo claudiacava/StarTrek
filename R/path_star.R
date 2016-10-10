@@ -47,11 +47,6 @@ path_net<-function(pathway,net_type){
   
   
   
-
-
-
-
-
 #' @title Get human KEGG pathway data and network data in order to define the common gene.
 #' @description list_path_net creates a list of interacting genes for each human pathway.   
 #' @param net_type  network data as provided by getNETdata
@@ -158,26 +153,9 @@ a<-match(currentPathway_genes_list_common,rownames(dc))
 vv[[k]]<- a
 names(vv)[k]<-colnames(pathway)[k]
 }
-
 r<-qgraph(dc, groups=vv, mar=c(1,1,1,1),minimum=0.6)
 return(r)
 }
-
-#a<-intersect(v$DNA_replication,v$Base_excision_repair)
-
-#b<-intersect(vv$DNA_replication,vv$Nucleotide_excision_repair)
-
-#c<-intersect(v$DNA_replication,v$`Non-homologous_end-joining`)
-#Q <- qgraph(mt, layout = "spring")
-#qgraph(mt, overlay = TRUE)
-#qgraph(cor(big5), groups=big5groups, edge.label.cex,mar=c(1,1,1,1),minimum=0.6)
-
-#library("psych")
-#big5pca <- principal(dc, 5, rotate = "promax")
-
-
-#qgraph(big5pca, groups = vv, layout = "circle", rotation = "promax", 
-#       minimum = 0.2, cut = 0.4, vsize = c(1.5, 15), borders = FALSE, vTrans = 200)
 
 
 #' @title For TCGA data get human pathway data and creates a matrix with the average of genes for each pathway.

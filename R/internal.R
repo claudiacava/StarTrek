@@ -122,8 +122,6 @@ ap<-paste("Glycosphingolipid biosynthesis - ganglio series", species)
 aq<-paste("Lipopolysaccharide biosynthesis", species)
 ar<-paste("Peptidoglycan biosynthesis", species)
 as<-paste("Other glycan degradation", species)
-
-
 mer<-c(ac,ad,ae,af,ag,ah,ai,al,am,an,ao,ap,aq,ar,as)
 return(mer)
 }
@@ -144,7 +142,6 @@ am<-paste("One carbon pool by folate", species)
 an<-paste("Retinol metabolism", species)
 ao<-paste("Porphyrin and chlorophyll metabolism", species)
 ap<-paste("Ubiquinone and other terpenoid-quinone biosynthesis", species) 	
-
 mer<-c(ac,ad,ae,af,ag,ah,ai,al,am,an,ao,ap)
 return(mer)
 }
@@ -241,7 +238,6 @@ z<-paste("cGMP-PKG signaling pathway", species)
 ab<-paste("PI3K-Akt signaling pathway", species)
 ac<-paste("AMPK signaling pathway", species)
 ad<-paste("mTOR signaling pathway", species)
-
 mer<-c(a,b,c,d,e,f,g,h,i,l,m,n,o,p,q,r,s,t,v,u,z,ab,ac,ad)
 return(mer)
 }
@@ -274,9 +270,7 @@ select_path_cell_grow<-function(Cell_growth_and_death){
   a<-paste("Cell cycle", species)
 b<-paste("Apoptosis", species)
 c<-paste("p53 signaling pathway", species)
-
 mer<-c(a,b,c)
-
 return(mer)
 }
 
@@ -288,7 +282,6 @@ b<-paste("Adherens junction", species)
 c<-paste("Tight junction", species)
 d<-paste("Gap junction", species)
 e<-paste("Signaling pathways regulating pluripotency of stem cells ", species)
-
 mer<-c(a,b,c,d,e)
 return(mer)
 }

@@ -357,8 +357,6 @@ knitr::opts_chunk$set(cache=FALSE)
 ```{r, echo = FALSE,hide=TRUE, message=FALSE,warning=FALSE}
 devtools::load_all(".")
 ```
-
-
 # Introduction 
 
 Motivation: 
@@ -568,7 +566,6 @@ res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(
 Visualization of the pathway cross talk network. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width indicate the strength of the correlation. 
 
 ```{r, eval = TRUE}
-library(qgraph)
 tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
 list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
 mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)

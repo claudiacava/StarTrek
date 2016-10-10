@@ -9,7 +9,6 @@
 #' @examples
 #' path<-getKEGGdata(KEGG_path="Ener_met")
 getKEGGdata<-function(KEGG_path=NULL){
-
 if (KEGG_path=="Carb_met") {
   pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
 mer<-select_path_carb(Carbohydrate)
@@ -397,8 +396,6 @@ for (j in  1:length(xx)){
   }
 }
 top3[top3 == 0] <- " "
-
-
 
 #a<-data.frame(pathways.list)
 #i <- sapply(a, is.factor)
