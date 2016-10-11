@@ -20,6 +20,6 @@ getNETdata creates a data frame with network data.
 Network category can be filtered among: physical interactions, co-localization, genetic interactions and shared protein domain.
 }
 \examples{
-netw<-getNETdata(network="SHpd")
+netw<-getNETdata(network="COloc")
 }
 

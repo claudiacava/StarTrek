@@ -8,366 +8,95 @@
 #' @return dataframe with human pathway data
 #' @examples
 #' path<-getKEGGdata(KEGG_path="Ener_met")
-getKEGGdata<-function(KEGG_path=NULL){
+getKEGGdata<-function(KEGG_path){
 if (KEGG_path=="Carb_met") {
-  pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-mer<-select_path_carb(Carbohydrate)
-common<-intersect(pathways.list,mer)
-lo<-list()
-for (i in 1:length(pathways.list)){
-if (length(intersect(pathways.list[[i]],common)!=0)){
-lo[[i]]<-pathways.list[[i]]
-names(lo)[[i]]<-names(pathways.list)[[i]]
+  c<-proc_path(pathwayKEGG)
+  a<-c[[2]]
 }
-}
-pathways.list<-lo[lapply(lo,length)!=0] 
-pathway.codes <- sub("path:", "", names(pathways.list))
-a<-do.call("rbind", pathways.list)
-}
-
   if (KEGG_path=="Ener_met") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_en(Energy)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-
-  
   if (KEGG_path=="Lip_met") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_lip(Lipid)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
-  
   if (KEGG_path=="Amn_met") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_amn(Aminoacid)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
-  
   if (KEGG_path=="Gly_bio_met") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_gly(Glybio_met)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="Cof_vit_met") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_cofa(Cofa_vita_met)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="Transcript") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_transc(Transcription)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
-  
-  
   if (KEGG_path=="Transl") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_transl(Translation)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
-  
   if (KEGG_path=="Fold_degr") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_fold(Folding_sorting_and_degradation)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="Repl_repair") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_repl(Replication_and_repair)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="sign_transd") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_sign(Signal_transduction)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="sign_mol_int") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_sign_mol(Signaling_molecules_and_interaction)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="Transp_cat") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_transp_ca(Transport_and_catabolism)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="cell_grow_d") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_cell_grow(Cell_growth_and_death)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="cell_comm") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_cell_comm(Cellular_community)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="imm_syst") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_imm_syst(Immune_system)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="end_syst") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_end_syst(Endocrine_system)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }
-  
   if (KEGG_path=="circ_syst") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_circ_syst(Circulatory_system)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   } 
-  
   if (KEGG_path=="dig_syst") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_dig_syst(Digestive_system)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   } 
-  
   if (KEGG_path=="exc_syst") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_exc_syst(Excretory_system)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   }  
-  
-  
   if (KEGG_path=="nerv_syst") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_ner_syst(Nervous_system)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   } 
-  
   if (KEGG_path=="sens_syst") {
-    pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
-    mer<-select_path_sens_syst(Sensory_system)
-    common<-intersect(pathways.list,mer)
-    lo<-list()
-    for (i in 1:length(pathways.list)){
-      if (length(intersect(pathways.list[[i]],common)!=0)){
-        lo[[i]]<-pathways.list[[i]]
-        names(lo)[[i]]<-names(pathways.list)[[i]]
-      }
-    }
-    pathways.list<-lo[lapply(lo,length)!=0] 
-    pathway.codes <- sub("path:", "", names(pathways.list))
-    a<-do.call("rbind", pathways.list)
+    c<-proc_path(pathwayKEGG)
+    a<-c[[2]]
   } 
-  
 if (KEGG_path=="KEGG_path") {
   pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
 pathway.codes <- sub("path:", "", names(pathways.list))
@@ -375,7 +104,7 @@ pathways.list<-list(pathways.list)
 pathways.list<-pathways.list[lapply(pathways.list,length)!=0] 
 a<-do.call("cbind", pathways.list)
 }
-
+pathway.codes<-c[[1]]
 genes.by.pathway <- sapply(pathway.codes,
                            function(pwid){
                              pw <- keggGet(pwid)
@@ -396,7 +125,6 @@ for (j in  1:length(xx)){
   }
 }
 top3[top3 == 0] <- " "
-
 #a<-data.frame(pathways.list)
 #i <- sapply(a, is.factor)
 #a[i] <- lapply(a[i], as.character)
@@ -423,7 +151,7 @@ return(PROVA)
 #' @importFrom SpidermiR SpidermiRquery_species SpidermiRquery_spec_networks SpidermiRdownload_net SpidermiRprepare_NET
 #' @return dataframe with gene-gene (or protein-protein interactions)
 #' @examples
-#' netw<-getNETdata(network="SHpd")
+#' netw<-getNETdata(network="COloc")
 getNETdata<-function(network){
   org_shar_pro<-SpidermiRquery_species(species)
   net_shar_prot<-SpidermiRquery_spec_networks(organismID = org_shar_pro[6,],network)

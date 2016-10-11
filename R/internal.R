@@ -509,5 +509,27 @@ return(score__cell_grow_d)
 }
 
 
+#' @title Get human KEGG pathway data.
+#' @description getKEGGdata creates a data frame with human KEGG pathway. Columns are the pathways and rows the genes inside those pathway 
+#' @param pathwayKEGG  variable
+#' @export
+#' @importFrom KEGGREST keggList
+#' @return dataframe with human pathway data
+proc_path<-function(pathwayKEGG){
+pathways.list <- keggList("pathway", "hsa")## returns the list of human pathways
+mer<-select_path_en(Energy)
+common<-intersect(pathways.list,mer)
+lo<-list()
+for (i in 1:length(pathways.list)){
+  if (length(intersect(pathways.list[[i]],common)!=0)){
+    lo[[i]]<-pathways.list[[i]]
+    names(lo)[[i]]<-names(pathways.list)[[i]]
+  }
+}
 
-
+pathways.list<-lo[lapply(lo,length)!=0] 
+pathway.codes <- sub("path:", "", names(pathways.list))
+b<-do.call("rbind", pathways.list)
+list_pathkegg<-list(pathway.codes,b)
+return(list_pathkegg)
+}

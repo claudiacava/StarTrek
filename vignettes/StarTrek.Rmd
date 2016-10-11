@@ -449,8 +449,8 @@ The network category can be filtered using the following parameters:
 * **SHpd**  Shared_protein_domains 
 
 
-```{r, eval = TRUE}
-netw<-getNETdata(network="SHpd")
+```{r, eval = FALSE}
+netw<-getNETdata(network="COloc")
 ```
 
 
@@ -519,13 +519,11 @@ score_tau_dist<-tau_dist(Data_CANCER_normUQ_filt,path)
 ```
 
 
-
-
 ## `euc_dist_crtlk`: Euclidean distance for cross-talk measure
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `euc_dist_crtlk` creates an euclidean distance matrix of gene expression for pairwise pathway.
 
-```{r, eval = TRUE}
-score_euc_dist_crtlkance<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
+```{r, eval = FALSE}
+score_euc_dist<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
 ## `dev_std_crtlk`: Sum of standard deviations for cross-talk measure
@@ -560,7 +558,7 @@ res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(
 
 # `plotting_cross_talk`: Plot pathway cross-talk
 
-Visualization of the pathway cross talk network. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width of the line indicates the strength of the correlation. 
+Visualization of the pathway cross-talk network. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width of the lines indicates the strength of the correlation. 
 
 ```{r, eval = FALSE}
 library(qgraph)

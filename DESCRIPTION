@@ -1,8 +1,8 @@
 Package: StarTrek
 Type: Package
 Title: StarTrek
-Version: 0.99.13
-Date: 10-07-2016
+Version: 0.99.14
+Date: 10-11-2016
 Author: Claudia Cava,
     Isabella Castiglioni
 Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
@@ -30,7 +30,9 @@ Suggests:
     testthat,
 	devtools,
 	roxygen2,
-	qgraph
+	qgraph,
+	png,
+	grid
 VignetteBuilder: knitr
 LazyData: true
 URL: https://github.com/claudiacava/StarTrek
