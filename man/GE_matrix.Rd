@@ -15,10 +15,9 @@ GE_matrix(DataMatrix, pathway)
 a matrix for each pathway ( gene expression level belong to that pathway)
 }
 \description{
-plotting_matrix creates a matrix of gene expression for pathways given by the user.
+GE_matrix creates a matrix of gene expression for pathways given by the user.
 }
 \examples{
-tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
 list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
 }
 

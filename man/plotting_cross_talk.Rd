@@ -20,8 +20,6 @@ a plot for pathway cross talk
 plotting_matrix creates a matrix of gene expression for pathways given by the user.
 }
 \examples{
-tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
-list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
 mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
 }
 

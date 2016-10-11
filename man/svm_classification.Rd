@@ -22,9 +22,6 @@ a list with AUC value for pairwise pathway
 svm class creates a list with auc value
 }
 \examples{
-tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
-norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:50]
-score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
 nf <- 60
 res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
 normal=colnames(norm),tumour=colnames(tumo))

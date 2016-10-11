@@ -39,3 +39,31 @@ NULL
 #' @name Data_CANCER_normUQ_filt
 #' @format A data frame with rows and variables
 NULL
+
+#' Score Matrix of pairwise pathway using euclidean distance
+#' @docType data
+#' @keywords internal
+#' @name score_euc_dist
+#' @format A data frame with rows and variables
+NULL
+
+#' TCGA data with normal samples
+#' @docType data
+#' @keywords internal
+#' @name norm
+#' @format A data frame with rows and variables
+NULL
+
+#' TCGA data with tumour samples
+#' @docType data
+#' @keywords internal
+#' @name tumo
+#' @format A data frame with rows and variables
+NULL
+
+#' A matrix of gene expression for pathways given by the user. 
+#' @docType data
+#' @keywords internal
+#' @name list_path_plot
+#' @format A data frame with rows and variables
+NULL

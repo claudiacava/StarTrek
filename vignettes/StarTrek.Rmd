@@ -552,24 +552,32 @@ Given the substantial difference in the activities of many pathways between two 
 This function is used to find the interacting pathways that are altered in a particular pathology in terms of Area Under Curve (AUC).AUC was estimated by cross-validation method (k-fold cross-validation, k=10).It randomly selected some fraction of TCGA data (e.g. nf= 60; 60% of original dataset) to form the training set and then assigned the rest of the points to the testing set (40% of original dataset). For each pairwise pathway the user can obtain using the methods mentioned above a score matrix ( e.g.dev_std_crtlk ) and can  focus on the pairs of pathways able to differentiate a particular subtype with respect to the normal type.
 
 ```{r, eval = TRUE}
-tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
-norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:100]
-score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
 nf <- 60
 res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(norm),tumour=colnames(tumo))
 
 ```
 
 
-# `Plot pathway cross-talk`: Plot
+# `plotting_cross_talk`: Plot pathway cross-talk
 
-Visualization of the pathway cross talk network. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width indicate the strength of the correlation. 
+Visualization of the pathway cross talk network. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width of the line indicates the strength of the correlation. 
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
+library(qgraph)
 tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
 list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
 mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
+r<-qgraph(mt$corr, groups=mt$gruppi, mar=c(1,1,1,1),minimum=0.6)
 ```
+
+The result from `plotting_cross_talk` is shown below:
+```{r, fig.width=6, fig.height=4, echo=FALSE, fig.align="center"}
+library(png)
+library(grid)
+img <- readPNG("plot_path.png")
+grid.raster(img)
+```
+
 
 ******
 

@@ -80,13 +80,12 @@ list_path_net<-function(net_type,pathway){
 
 
 #' @title Get human KEGG pathway data and a gene expression matrix in order to obtain a matrix with the gene expression for only pathways given in input .
-#' @description plotting_matrix creates a matrix of gene expression for pathways given by the user.   
+#' @description GE_matrix creates a matrix of gene expression for pathways given by the user.   
 #' @param DataMatrix  gene expression matrix (eg.TCGA data)
 #' @param pathway  pathway data as provided by getKEGGdata
 #' @export
 #' @return a matrix for each pathway ( gene expression level belong to that pathway)
 #' @examples
-#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
 #' list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
 GE_matrix<-function(DataMatrix,pathway) {
   path_name<-sub(' ', '_',colnames(pathway))
@@ -116,46 +115,45 @@ return(PEAmatrix)
 }
 
 
-
 #' @title Get human KEGG pathway data and a gene expression matrix we obtain a matrix with the gene expression for only pathways given in input .
 #' @description plotting_matrix creates a matrix of gene expression for pathways given by the user.   
 #' @param DataMatrix  gene expression matrix (eg.TCGA data)
 #' @param pathway  pathway data as provided by getKEGGdata
 #' @param path_matrix  output of the function GE_matrix
 #' @export
-#' @importFrom qgraph qgraph 
 #' @return a plot for pathway cross talk
 #' @examples
-#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
-#' list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
 #' mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
 plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
-zz<-as.data.frame(rowMeans(DataMatrix))
-v<-list()
-for ( k in 1: ncol(pathway)){
-  path_name<-sub(' ', '_',colnames(pathway))
-  d_pr<- gsub(" - Homo sapiens (human)", "", path_name, fixed="TRUE")
-  colnames(pathway)<-d_pr
-  if (length(intersect(rownames(zz),pathway[,k])!=0)){
-    print(colnames(path)[k])
-    currentPathway_genes_list_common <- intersect(rownames(zz), currentPathway_genes<-pathway[,k])
-    currentPathway_genes_list_commonMatrix <- as.data.frame(zz[currentPathway_genes_list_common,])
-    rownames(currentPathway_genes_list_commonMatrix)<-currentPathway_genes_list_common
-    v[[k]]<- as.factor(currentPathway_genes_list_common)
-    names(v)[k]<-colnames(pathway)[k]
+  zz<-as.data.frame(rowMeans(DataMatrix))
+  v<-list()
+  for ( k in 1: ncol(pathway)){
+    path_name<-sub(' ', '_',colnames(pathway))
+    d_pr<- gsub(" - Homo sapiens (human)", "", path_name, fixed="TRUE")
+    colnames(pathway)<-d_pr
+    if (length(intersect(rownames(zz),pathway[,k])!=0)){
+      print(colnames(path)[k])
+      currentPathway_genes_list_common <- intersect(rownames(zz), currentPathway_genes<-pathway[,k])
+      currentPathway_genes_list_commonMatrix <- as.data.frame(zz[currentPathway_genes_list_common,])
+      rownames(currentPathway_genes_list_commonMatrix)<-currentPathway_genes_list_common
+      v[[k]]<- as.factor(currentPathway_genes_list_common)
+      names(v)[k]<-colnames(pathway)[k]
+    }
   }
+  vv<-list()
+  dc<-cor(t(path_matrix))
+  for ( k in 1: length(v)){
+    currentPathway_genes_list_common <- intersect(rownames(dc), v[[k]])
+    a<-match(currentPathway_genes_list_common,rownames(dc))
+    vv[[k]]<- a
+    names(vv)[k]<-colnames(pathway)[k]
+  }
+  list_plt=list(corr=dc,gruppi=vv)
+ #r<-qgraph(list_plt$corr, groups=list_plt$gruppi, mar=c(1,1,1,1),minimum=0.6)
+  return(list_plt)
 }
-vv<-list()
-dc<-cor(t(path_matrix))
-for ( k in 1: length(v)){
-currentPathway_genes_list_common <- intersect(rownames(dc), v[[k]])
-a<-match(currentPathway_genes_list_common,rownames(dc))
-vv[[k]]<- a
-names(vv)[k]<-colnames(pathway)[k]
-}
-r<-qgraph(dc, groups=vv, mar=c(1,1,1,1),minimum=0.6)
-return(r)
-}
+
+
 
 
 #' @title For TCGA data get human pathway data and creates a matrix with the average of genes for each pathway.
@@ -418,9 +416,6 @@ return(d)}
 #' @importFrom  grDevices rainbow
 #' @return a list with AUC value for pairwise pathway 
 #' @examples
-#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
-#' norm<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="normal")[,1:50]
-#' score_euc_dist<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
 #' nf <- 60
 #' res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
 #' normal=colnames(norm),tumour=colnames(tumo))
