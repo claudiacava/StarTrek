@@ -522,7 +522,7 @@ score_tau_dist<-tau_dist(Data_CANCER_normUQ_filt,path)
 ## `euc_dist_crtlk`: Euclidean distance for cross-talk measure
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `euc_dist_crtlk` creates an euclidean distance matrix of gene expression for pairwise pathway.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 score_euc_dist<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
 ```
 
@@ -562,8 +562,6 @@ Visualization of the pathway cross-talk network. This function uses the relation
 
 ```{r, eval = FALSE}
 library(qgraph)
-tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:50]
-list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
 mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
 r<-qgraph(mt$corr, groups=mt$gruppi, mar=c(1,1,1,1),minimum=0.6)
 ```
