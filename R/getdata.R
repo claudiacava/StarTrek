@@ -151,12 +151,20 @@ return(PROVA)
 #' @importFrom SpidermiR SpidermiRquery_species SpidermiRquery_spec_networks SpidermiRdownload_net SpidermiRprepare_NET
 #' @return dataframe with gene-gene (or protein-protein interactions)
 #' @examples
-#' netw<-getNETdata(network="COloc")
-getNETdata<-function(network){
+#' organism="Saccharomyces_cerevisiae"
+#' netw<-getNETdata(network="SHpd",organism)
+getNETdata<-function(network,organism=NULL){
   org_shar_pro<-SpidermiRquery_species(species)
+  if (is.null(organism)) {
   net_shar_prot<-SpidermiRquery_spec_networks(organismID = org_shar_pro[6,],network)
   out_net_shar_pro<-SpidermiRdownload_net(net_shar_prot)
   geneSymb_net_shar_pro<-SpidermiRprepare_NET(organismID = org_shar_pro[6,],data = out_net_shar_pro)
+  }
+  if( !is.null(organism) ){
+    net_shar_prot<-SpidermiRquery_spec_networks(organismID = org_shar_pro[9,],network)
+    out_net_shar_pro<-SpidermiRdownload_net(net_shar_prot)
+    geneSymb_net_shar_pro<-SpidermiRprepare_NET(organismID = org_shar_pro[9,],data = out_net_shar_pro)
+}
   ds_shar_pro<-do.call("rbind", geneSymb_net_shar_pro)
   data_shar_pro<-as.data.frame(ds_shar_pro[!duplicated(ds_shar_pro), ]) 
   sdc_shar_pro<-unlist(data_shar_pro$gene_symbolA,data_shar_pro$gene_symbolB)
