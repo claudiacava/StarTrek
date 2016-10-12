@@ -86,7 +86,7 @@ list_path_net<-function(net_type,pathway){
 #' @export
 #' @return a matrix for each pathway ( gene expression level belong to that pathway)
 #' @examples
-#' list_path_plot<-GE_matrix(DataMatrix=tumo,pathway=path)
+#' list_path_plot<-GE_matrix(DataMatrix=tumo[,1:5],pathway=path)
 GE_matrix<-function(DataMatrix,pathway) {
   path_name<-sub(' ', '_',colnames(pathway))
 d_pr<- gsub(" - Homo sapiens (human)", "", path_name, fixed="TRUE")
@@ -123,7 +123,7 @@ return(PEAmatrix)
 #' @export
 #' @return a plot for pathway cross talk
 #' @examples
-#' mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
+#' mt<-plotting_cross_talk(DataMatrix=tumo[,1:5],pathway=path,path_matrix=list_path_plot)
 plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
   zz<-as.data.frame(rowMeans(DataMatrix))
   v<-list()
@@ -163,7 +163,7 @@ plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_mean<-average(dataFilt=Data_CANCER_normUQ_filt,path)
+#' score_mean<-average(dataFilt=tumo[,1:5],path)
 average<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
   #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
@@ -202,7 +202,7 @@ return(PEAmatrix)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' med<-score_median(dataFilt=Data_CANCER_normUQ_filt,path)
+#' med<-score_median(dataFilt=tumo[[,1:5]],path)
 score_median<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
   #DataMatrix[ , "new.col"] <- gsub("\\|.*", "", rownames(DataMatrix))
@@ -239,7 +239,7 @@ score_median<-function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_tau_dist<-tau_dist(dataFilt=Data_CANCER_normUQ_filt,path)
+#' score_tau_dist<-tau_dist(dataFilt=tumo[,1:5],path)
 tau_dist <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   datam = as.matrix(PEAmatrix)
@@ -257,7 +257,7 @@ tau_dist <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_euc_dist<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
+#' score_euc_dista<-euc_dist_crtlk(dataFilt=tumo[,1:5],path)
 euc_dist_crtlk <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -285,7 +285,7 @@ euc_dist_crtlk <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' stand_dev<-st_dv(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
+#' stand_dev<-st_dv(dataFilt=tumo[,1:5],pathway=path)
 st_dv<-function(dataFilt,pathway){
 DataMatrix<-dataFilt
 
@@ -318,7 +318,7 @@ return(PEAmatrix_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' cross_talk_st_dv<-dev_std_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
+#' cross_talk_st_dv<-dev_std_crtlk(dataFilt=tumo[,1:5],pathway=path)
 dev_std_crtlk<-function(dataFilt,pathway){
 PEAmatrix_sd<-st_dv(dataFilt,pathway)
 df=combn(rownames(PEAmatrix_sd),2) 
@@ -344,7 +344,7 @@ return(somma_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
+#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:5],pathway=path)
 ds_score_crtlk<-function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance

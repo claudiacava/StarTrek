@@ -18,6 +18,6 @@ a matrix value for each pathway
 st_dv creates a matrix with standard deviation for pathways
 }
 \examples{
-stand_dev<-st_dv(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
+stand_dev<-st_dv(dataFilt=tumo[,1:5],pathway=path)
 }
 

@@ -16,6 +16,6 @@ dataframe with human pathway data
 getKEGGdata creates a data frame with human KEGG pathway. Columns are the pathways and rows the genes inside those pathway
 }
 \examples{
-path<-getKEGGdata(KEGG_path="Ener_met")
+path<-getKEGGdata(KEGG_path="cell_grow_d")
 }
 

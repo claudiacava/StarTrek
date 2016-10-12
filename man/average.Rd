@@ -18,6 +18,6 @@ a matrix value for each pathway
 average creates a matrix with a summarized value for each pathway
 }
 \examples{
-score_mean<-average(dataFilt=Data_CANCER_normUQ_filt,path)
+score_mean<-average(dataFilt=tumo[,1:5],path)
 }
 

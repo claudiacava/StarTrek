@@ -4,13 +4,15 @@
 \alias{getNETdata}
 \title{Get network data.}
 \usage{
-getNETdata(network)
+getNETdata(network, organism = NULL)
 }
 \arguments{
 \item{network}{variable. The user can use the following parameters 
 based on the network types to be used. PHint for Physical_interactions,
 COloc for Co-localization, GENint for Genetic_interactions and
 SHpd for Shared_protein_domains}
+
+\item{organism}{organism==NULL default value is homo sapiens}
 }
 \value{
 dataframe with gene-gene (or protein-protein interactions)
@@ -20,6 +22,7 @@ getNETdata creates a data frame with network data.
 Network category can be filtered among: physical interactions, co-localization, genetic interactions and shared protein domain.
 }
 \examples{
-netw<-getNETdata(network="COloc")
+organism="Saccharomyces_cerevisiae"
+netw<-getNETdata(network="SHpd",organism)
 }
 

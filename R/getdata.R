@@ -7,94 +7,116 @@
 #' @importFrom AnnotationDbi mappedkeys as.list
 #' @return dataframe with human pathway data
 #' @examples
-#' path<-getKEGGdata(KEGG_path="Ener_met")
+#' path<-getKEGGdata(KEGG_path="cell_grow_d")
 getKEGGdata<-function(KEGG_path){
 if (KEGG_path=="Carb_met") {
-  c<-proc_path(pathwayKEGG)
+  mer<-select_path_carb(Carbohydrate)
+  c<-proc_path(mer)
   a<-c[[2]]
 }
   if (KEGG_path=="Ener_met") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_en(Energy)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Lip_met") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_lip(Lipid)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Amn_met") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_amn(Aminoacid)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Gly_bio_met") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_gly(Glybio_met)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Cof_vit_met") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_gly(Cofa_vita_met)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Transcript") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_transc(Transcription)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Transl") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_transl(Translation)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Fold_degr") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_fold(Folding_sorting_and_degradation)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Repl_repair") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_repl(Replication_and_repair)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="sign_transd") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_sign(Signal_transduction)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="sign_mol_int") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_sign_mol(Signaling_molecules_and_interaction)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="Transp_cat") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_transp_ca(Transport_and_catabolism)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="cell_grow_d") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_cell_grow(Cell_growth_and_death)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="cell_comm") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_cell_comm(Cellular_community)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="imm_syst") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_imm_syst(Immune_system)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="end_syst") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_end_syst(Endocrine_system)
+    c<-proc_path(mer)
     a<-c[[2]]
   }
   if (KEGG_path=="circ_syst") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_circ_syst(Circulatory_system)
+    c<-proc_path(mer)
     a<-c[[2]]
   } 
   if (KEGG_path=="dig_syst") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_dig_syst(Digestive_system)
+    c<-proc_path(mer)
     a<-c[[2]]
   } 
   if (KEGG_path=="exc_syst") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_exc_syst(Excretory_system)
+    c<-proc_path(mer)
     a<-c[[2]]
   }  
   if (KEGG_path=="nerv_syst") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_ner_syst(Nervous_system)
+    c<-proc_path(mer)
     a<-c[[2]]
   } 
   if (KEGG_path=="sens_syst") {
-    c<-proc_path(pathwayKEGG)
+    mer<-select_path_sens_syst(Sensory_system)
+    c<-proc_path(mer)
     a<-c[[2]]
   } 
 if (KEGG_path=="KEGG_path") {
@@ -130,7 +152,6 @@ top3[top3 == 0] <- " "
 #a[i] <- lapply(a[i], as.character)
 rownames(a)<-sub("path:","",rownames(a))
 PROVA<-top3
-ti=list()
 for( i in 1:ncol(PROVA)) {
   if (colnames(PROVA)[i]==rownames(a)[i]){
     colnames(PROVA)[i]<-a[i]
@@ -147,6 +168,7 @@ return(PROVA)
 #' based on the network types to be used. PHint for Physical_interactions,
 #' COloc for Co-localization, GENint for Genetic_interactions and
 #' SHpd for Shared_protein_domains
+#' @param organism organism==NULL default value is homo sapiens
 #' @export
 #' @importFrom SpidermiR SpidermiRquery_species SpidermiRquery_spec_networks SpidermiRdownload_net SpidermiRprepare_NET
 #' @return dataframe with gene-gene (or protein-protein interactions)

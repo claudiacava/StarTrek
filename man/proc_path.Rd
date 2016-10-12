@@ -4,10 +4,10 @@
 \alias{proc_path}
 \title{Get human KEGG pathway data.}
 \usage{
-proc_path(pathwayKEGG)
+proc_path(mer)
 }
 \arguments{
-\item{pathwayKEGG}{variable}
+\item{mer}{output for example of select_path_carb}
 }
 \value{
 dataframe with human pathway data

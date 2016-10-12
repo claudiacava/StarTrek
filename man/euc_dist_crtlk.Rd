@@ -18,6 +18,6 @@ a matrix value for each pathway
 euc_dist_crtlk creates a matrix with euclidean distance for pairwise pathways
 }
 \examples{
-score_euc_dist<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,path)
+score_euc_dista<-euc_dist_crtlk(dataFilt=tumo[,1:5],path)
 }
 

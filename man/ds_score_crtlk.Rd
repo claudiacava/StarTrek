@@ -18,6 +18,6 @@ a matrix value for each pathway
 st_dv creates a matrix with standard deviation for pathways
 }
 \examples{
-cross_talk_st_dv<-ds_score_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
+cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:5],pathway=path)
 }
 
