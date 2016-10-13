@@ -18,6 +18,6 @@ a gene expression matrix of the samples with specified label
 select two labels from ID barcode
 }
 \examples{
-tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
+tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,2]
 }
 

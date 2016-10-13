@@ -420,7 +420,7 @@ return(mer)
 #' @export
 #' @return a gene expression matrix of the samples with specified label
 #' @examples
-#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,1:100]
+#' tumo<-SelectedSample(Dataset=Data_CANCER_normUQ_filt,typesample="tumor")[,2]
 SelectedSample <- function(Dataset,typesample){
   if( typesample =="tumor"){
     Dataset <- Dataset[,which( as.numeric(substr(colnames(Dataset), 14, 15)) == 01) ]

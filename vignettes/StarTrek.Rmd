@@ -417,11 +417,8 @@ ORGANISMAL SYSTEMS
 * **nerv_syst **    Nervous_system
 * **sens_syst **    Sensory_system
 
-The following code is used to download all KEGG pathways and genes:
 
-```{r, eval = FALSE}
-path<-getKEGGdata(KEGG_path="KEGG_path")
-```
+
 
 The following code is an example to download the pathways involved in Transcription:
 
@@ -437,6 +434,7 @@ knitr::kable(colnames(path), digits = 2,
              caption = "List of patwhays for the group Transcript",row.names = FALSE)
 ```
 
+The function `getKEGGdata` with KEGG_path="KEGG_path" will download all KEGG pathaway. 
 
 ## `getNETdata`: Searching network data for download 
 You can easily search human network data from GeneMania using the `getNETdata` function.
@@ -520,8 +518,7 @@ This function is used to find the interacting pathways that are altered in a par
 
 ```{r, eval = TRUE}
 nf <- 60
-res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(norm[,1:15]),
-                              tumour=colnames(tumo[,1:15]))
+res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(norm[,1:12]),tumour=colnames(tumo[,1:12]))
 
 ```
 
