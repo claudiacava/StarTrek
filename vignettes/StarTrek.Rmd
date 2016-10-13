@@ -456,14 +456,6 @@ netw<-getNETdata(network="COloc")
 
 # `Integration data`: Integration between KEGG pathway and network data 
 
-## `path_net`: Interacting genes for each pathway (network data) according a network type (PHint,COloc,GENint,PATH,SHpd)
-
-The function `path_net` creates network data for each pathway. Interacting genes are genes belonging to the same pathway and the interaction is given from network chosen by the user, according the paramenters of the function `getNETdata`.
-
-```{r, eval = TRUE}
-netpath<-path_net(pathway=path,net_type=netw)
-```
-
 ## `list_path_net`: List of interacting genes for each pathway (list of genes) according a network type (PHint,COloc,GENint,PATH,SHpd)
 
 The function `list_path_net` creates a list of interacting genes for each pathway. Interacting genes are genes belonging to the same pathway and the interaction is given from network chosen by the user, according the paramenters of the function `getNETdata`.
@@ -502,13 +494,6 @@ score_st_dev<-st_dv(dataFilt=tumo[,1:3],pathway=path)
 
 
 # `Pathway cross-talk indexes`: Score for pairwise pathways 
-
-## `hamm_dist`: Hamming distance for cross-talk measure
-Starting from a matrix of pathway data (rows are genes and columns are pathways) the function `hamm_dist` creates a distance matrix for pairwise pathway based on the common genes among pathways.
-
-```{r, eval = TRUE}
-hamm_distance<-hamm_dist(list_pat=list_path)
-```
 
 
 ## `tau_dist`: TAU distance for cross-talk measure

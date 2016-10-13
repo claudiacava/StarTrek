@@ -1,53 +1,4 @@
 #' @title Get human KEGG pathway data and network data in order to define the common gene.
-#' @description path_net creates a list of network data for each human pathway. The network data will be generated when interacting genes belong to that pathway.  
-#' @param net_type  network data as provided by getNETdata
-#' @param pathway  pathway data as provided by getKEGGdata
-#' @export
-#' @return a list of network data for each pathway (interacting genes belong to that pathway)
-#' @examples
-#' lista_net<-path_net(pathway=path,net_type=netw)
-path_net<-function(pathway,net_type){
-    lista_int<-list()
-    for (k in 1:ncol(pathway)){
-      #k=1 
-      print(paste(k,"PATHWAY",colnames(pathway)[k]))
-      currentPathway_genes<-pathway[,k]
-      common1 <- intersect( net_type$m_shar_pro, currentPathway_genes)
-      common2 <- intersect( net_type$m2_shar_pro, currentPathway_genes)
-      if (length(common1)==0 & length(common2)==0 ){
-        mago2<-character(length = 0)
-      }
-      if (length(common1)!=0 | length(common2)!=0 ){
-        b=list()
-        for (i in 1:length(common1)){
-          x<-common1[i]
-          n<-overlap(net_type,x,currentPathway_genes)
-          b[[i]]<-n
-        }
-        v<-do.call("rbind", b)
-        c=list()
-        for (i in 1:length(common2)){
-          x<-common1[i]
-          n<-overlap(net_type,x,currentPathway_genes)
-          c[[i]]<-n
-        }
-        v2<-do.call("rbind", b)
-        mago<-rbind(v,v2)
-        mago2<-mago[!duplicated(mago), ]
-      }
-      
-      if (length(mago2)!=0){
-        lista_int[[k]]<-mago2
-      }
-      if (length(mago2)==0){
-        lista_int[[k]]<-"0"} 
-    }   
-    return(lista_int)
-  }
-  
-  
-  
-#' @title Get human KEGG pathway data and network data in order to define the common gene.
 #' @description list_path_net creates a list of interacting genes for each human pathway.   
 #' @param net_type  network data as provided by getNETdata
 #' @param pathway  pathway data as provided by getKEGGdata
@@ -202,7 +153,7 @@ return(PEAmatrix)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' med<-score_median(dataFilt=tumo[[,1:5]],path)
+#' med<-score_median(dataFilt=tumo[,1:5],path)
 score_median<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
   #DataMatrix[ , "new.col"] <- gsub("\\|.*", "", rownames(DataMatrix))
@@ -372,35 +323,6 @@ ds_score_crtlk<-function(dataFilt,pathway){
   score<- cbind(df,score)  
 return(score)
 }
-
-#' @title Hamming distance  
-#' @description hamm_dist creates a matrix with Hamming distance values for pathways  
-#' @param list_pat pathway data
-#' @export
-#' @importFrom e1071  hamming.distance
-#' @return a symmetric matrix value with a distance among pathways 
-#' @examples
-#' hamm_distance<-hamm_dist(list_pat=list_path)
-hamm_dist<-function(list_pat){
-  
-  #nm <- list(1:8,3:8,1:5)
-  max_length <- max(sapply(list_pat,length))
-  p<-sapply(list_pat, function(x){
-    c(x, rep("", max_length - length(x)))
-  })
-  
-  #p[p == 0] <- " "
-  
-  #li<-do.call("rbind", list_pat)
-  
-  #alt<-t(li)
-d<-hamming.distance(as.matrix(t(p)))
-return(d)}
-
-
-
-
-
 
 
 
