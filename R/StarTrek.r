@@ -25,12 +25,7 @@ NULL
 #' @format A data frame with  rows and variables
 NULL
 
-#' list_path
-#' @docType data
-#' @keywords internal
-#' @name list_path
-#' @format A data frame with rows (genes) and variables (samples)
-NULL
+
 
 
 #' TCGA data

@@ -37,7 +37,7 @@ list_path_net<-function(net_type,pathway){
 #' @export
 #' @return a matrix for each pathway ( gene expression level belong to that pathway)
 #' @examples
-#' list_path_plot<-GE_matrix(DataMatrix=tumo[,1:5],pathway=path)
+#' list_path_plot<-GE_matrix(DataMatrix=tumo[,1:3],pathway=path)
 GE_matrix<-function(DataMatrix,pathway) {
   path_name<-sub(' ', '_',colnames(pathway))
 d_pr<- gsub(" - Homo sapiens (human)", "", path_name, fixed="TRUE")
@@ -74,7 +74,7 @@ return(PEAmatrix)
 #' @export
 #' @return a plot for pathway cross talk
 #' @examples
-#' mt<-plotting_cross_talk(DataMatrix=tumo[,1:5],pathway=path,path_matrix=list_path_plot)
+#' mt<-plotting_cross_talk(DataMatrix=tumo[,1:3],pathway=path,path_matrix=list_path_plot)
 plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
   zz<-as.data.frame(rowMeans(DataMatrix))
   v<-list()
@@ -114,7 +114,7 @@ plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_mean<-average(dataFilt=tumo[,1:5],path)
+#' score_mean<-average(dataFilt=tumo[,1:3],path)
 average<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
   #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
@@ -146,58 +146,7 @@ return(PEAmatrix)
 
 
 
-#' @title For TCGA data get human pathway data and creates a matrix with the median of genes for each pathway.
-#' @description score_median creates a matrix with a summarized value for each pathway  
-#' @param dataFilt TCGA matrix
-#' @param pathway pathway data
-#' @export
-#' @return a matrix value for each pathway 
-#' @examples
-#' med<-score_median(dataFilt=tumo[,1:5],path)
-score_median<-function(dataFilt,pathway){
-  DataMatrix<-dataFilt
-  #DataMatrix[ , "new.col"] <- gsub("\\|.*", "", rownames(DataMatrix))
-  #DataMatrix<-DataMatrix[which(DataMatrix$new.col!="?"),]
-  #DataMatrix <- subset(DataMatrix, !duplicated(DataMatrix$new.col)) 
-  #rownames(DataMatrix)<-DataMatrix$new.col
-  #DataMatrix$new.col<-NULL
-  PEAmatrix <- matrix( 0, ncol(pathway),ncol(DataMatrix))
-  rownames(PEAmatrix) <- colnames(pathway)
-  colnames(PEAmatrix) <-  colnames(DataMatrix)
-  listIPA_pathways<-colnames(pathway)
-  for ( k in 1: nrow(PEAmatrix)){
-    #k=1
-    #currentPathway <- colnames(pathway)[k]
-    currentPathway_genes_list_common <- intersect(rownames(DataMatrix), currentPathway_genes<-pathway[,k])
-    currentPathway_genes_list_commonMatrix <- DataMatrix[currentPathway_genes_list_common,]
-    mu<-list()
-    for (i in 1:ncol(currentPathway_genes_list_commonMatrix)){
-    med<-median(currentPathway_genes_list_commonMatrix[,i],na.rm = TRUE)
-    mu[[i]]<-med
-    }
-    v<-do.call("cbind", mu)
-    PEAmatrix[k,] <- v
-  }
-  return(PEAmatrix)
-}
 
-
-#' @title For TCGA data get human pathway data and creates a measure of cross-talk among pathways 
-#' @description tau_dist creates a matrix with tau distance for pairwise pathways  
-#' @param dataFilt TCGA matrix
-#' @param pathway pathway data
-#' @importFrom bioDist tau.dist
-#' @export
-#' @return a matrix value for each pathway 
-#' @examples
-#' score_tau_dist<-tau_dist(dataFilt=tumo[,1:5],path)
-tau_dist <- function(dataFilt,pathway){
-  PEAmatrix<-average(dataFilt,pathway)
-  datam = as.matrix(PEAmatrix)
-  s1 = tau.dist(datam)	
-  s2 = as.matrix(s1)
-  return(s2)
-}
 
 
 
@@ -208,7 +157,7 @@ tau_dist <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_euc_dista<-euc_dist_crtlk(dataFilt=tumo[,1:5],path)
+#' score_euc_dista<-euc_dist_crtlk(dataFilt=tumo[,1:3],path)
 euc_dist_crtlk <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -236,7 +185,7 @@ euc_dist_crtlk <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' stand_dev<-st_dv(dataFilt=tumo[,1:5],pathway=path)
+#' stand_dev<-st_dv(dataFilt=tumo[,1:3],pathway=path)
 st_dv<-function(dataFilt,pathway){
 DataMatrix<-dataFilt
 
@@ -262,30 +211,7 @@ return(PEAmatrix_sd)
 
 
 
-#' @title For TCGA data get human pathway data and creates a measure of standard deviations among pathways 
-#' @description dev_std_crtlk creates a matrix with standard deviation for pathways  
-#' @param dataFilt TCGA matrix
-#' @param pathway pathway data
-#' @export
-#' @return a matrix value for each pathway 
-#' @examples
-#' cross_talk_st_dv<-dev_std_crtlk(dataFilt=tumo[,1:5],pathway=path)
-dev_std_crtlk<-function(dataFilt,pathway){
-PEAmatrix_sd<-st_dv(dataFilt,pathway)
-df=combn(rownames(PEAmatrix_sd),2) 
-df=t(df)
 
-ma<-matrix(0,nrow(df),ncol(PEAmatrix_sd)) # creo matrix che conterr? le somme delle dev st
-colnames(ma)<-colnames(PEAmatrix_sd) # colnames contiene il nome dei pazienti
-
-for ( p in 1: ncol(PEAmatrix_sd)){ # per ogni paziente
-  patients <- (PEAmatrix_sd)[,p] 
-  out <- apply(df, 1, function(x) sum(patients[x])) # calcolo somma delle dev standard tra le possibili combinazioni
-  ma[,p]<-out
-}
-somma_sd<-cbind(df,ma) 
-return(somma_sd)
-}
 
 
 #' @title For TCGA data get human pathway data and creates a measure of discriminating score among pathways 
@@ -295,7 +221,7 @@ return(somma_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:5],pathway=path)
+#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:3],pathway=path)
 ds_score_crtlk<-function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
