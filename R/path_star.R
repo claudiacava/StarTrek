@@ -37,7 +37,7 @@ list_path_net<-function(net_type,pathway){
 #' @export
 #' @return a matrix for each pathway ( gene expression level belong to that pathway)
 #' @examples
-#' list_path_plot<-GE_matrix(DataMatrix=tumo[,1:3],pathway=path)
+#' list_path_plot<-GE_matrix(DataMatrix=tumo[,1:2],pathway=path)
 GE_matrix<-function(DataMatrix,pathway) {
   path_name<-sub(' ', '_',colnames(pathway))
 d_pr<- gsub(" - Homo sapiens (human)", "", path_name, fixed="TRUE")
@@ -74,7 +74,7 @@ return(PEAmatrix)
 #' @export
 #' @return a plot for pathway cross talk
 #' @examples
-#' mt<-plotting_cross_talk(DataMatrix=tumo[,1:3],pathway=path,path_matrix=list_path_plot)
+#' mt<-plotting_cross_talk(DataMatrix=tumo[,1:2],pathway=path,path_matrix=list_path_plot)
 plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
   zz<-as.data.frame(rowMeans(DataMatrix))
   v<-list()
@@ -114,7 +114,7 @@ plotting_cross_talk<-function(DataMatrix,pathway,path_matrix){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_mean<-average(dataFilt=tumo[,1:3],path)
+#' score_mean<-average(dataFilt=tumo[,1:2],path)
 average<-function(dataFilt,pathway){
   DataMatrix<-dataFilt
   #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
@@ -157,7 +157,7 @@ return(PEAmatrix)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' score_euc_dista<-euc_dist_crtlk(dataFilt=tumo[,1:3],path)
+#' score_euc_dista<-euc_dist_crtlk(dataFilt=tumo[,1:2],path)
 euc_dist_crtlk <- function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -185,7 +185,7 @@ euc_dist_crtlk <- function(dataFilt,pathway){
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' stand_dev<-st_dv(dataFilt=tumo[,1:3],pathway=path)
+#' stand_dev<-st_dv(dataFilt=tumo[,1:2],pathway=path)
 st_dv<-function(dataFilt,pathway){
 DataMatrix<-dataFilt
 
@@ -221,7 +221,7 @@ return(PEAmatrix_sd)
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:3],pathway=path)
+#' cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:2],pathway=path)
 ds_score_crtlk<-function(dataFilt,pathway){
   PEAmatrix<-average(dataFilt,pathway)
   #step 5 distance
@@ -266,29 +266,27 @@ return(score)
 #' @examples
 #' nf <- 60
 #' res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
-#' normal=colnames(norm),tumour=colnames(tumo))
+#' normal=colnames(norm[,1:15]),tumour=colnames(tumo[,1:15]))
 svm_classification<-function(TCGA_matrix,tumour,normal,nfs){
   #library("e1071")
   #library(ROCR)
 
-  dataFilt<-TCGA_matrix
-  DataMatrix <-dataFilt
-  scoreMatrix <- as.data.frame(DataMatrix[,3:ncol(DataMatrix)])
+  scoreMatrix <- as.data.frame(TCGA_matrix[,3:ncol(TCGA_matrix)])
   scoreMatrix <-as.data.frame(scoreMatrix)
   for( i in 1: ncol(scoreMatrix)){
     scoreMatrix[,i] <- as.numeric(as.character(scoreMatrix[,i]))
   }
 
-  DataMatrix[,1] <- gsub(" ", "_", DataMatrix[,1])
-  d<-sub('_-_Homo_sapiens_*', '', DataMatrix[,1])
+  TCGA_matrix[,1] <- gsub(" ", "_", TCGA_matrix[,1])
+  d<-sub('_-_Homo_sapiens_*', '', TCGA_matrix[,1])
   #d_pr<-sub(')*', '', DataMatrix[,1])
   
   d_pr<- gsub("(human)", "", d, fixed="TRUE")
   d_pr <- gsub("_", "", d_pr)
   d_pr <- gsub("-", "", d_pr)
   
-  DataMatrix[,2] <- gsub(" ", "_", DataMatrix[,2])
-  d2<-sub('_-_Homo_sapiens_(human)*', '', DataMatrix[,2])
+  TCGA_matrix[,2] <- gsub(" ", "_", TCGA_matrix[,2])
+  d2<-sub('_-_Homo_sapiens_(human)*', '', TCGA_matrix[,2])
   d_pr2<- gsub("(human)", "", d2, fixed="TRUE")
   d_pr2 <- gsub("_", "", d_pr2)
   d_pr2 <- gsub("-", "", d_pr2)

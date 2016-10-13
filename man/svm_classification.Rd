@@ -24,6 +24,6 @@ svm class creates a list with auc value
 \examples{
 nf <- 60
 res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
-normal=colnames(norm),tumour=colnames(tumo))
+normal=colnames(norm[,1:15]),tumour=colnames(tumo[,1:15]))
 }
 

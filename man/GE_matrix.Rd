@@ -18,6 +18,6 @@ a matrix for each pathway ( gene expression level belong to that pathway)
 GE_matrix creates a matrix of gene expression for pathways given by the user.
 }
 \examples{
-list_path_plot<-GE_matrix(DataMatrix=tumo[,1:3],pathway=path)
+list_path_plot<-GE_matrix(DataMatrix=tumo[,1:2],pathway=path)
 }
 

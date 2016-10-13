@@ -474,7 +474,7 @@ list_path<-list_path_net(net_type=netw,pathway=path)
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `average` creates an average matrix of gene expression for each pathway:
 
 ```{r, eval = TRUE}
-score_mean<-average(dataFilt=tumo[,1:3],pathway=path)
+score_mean<-average(dataFilt=tumo[,1:2],pathway=path)
 ```
 
 
@@ -483,7 +483,7 @@ score_mean<-average(dataFilt=tumo[,1:3],pathway=path)
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `st_dv` creates a standard deviation matrix of gene expression for each pathway:
 
 ```{r, eval = TRUE}
-score_st_dev<-st_dv(dataFilt=tumo[,1:3],pathway=path)
+score_st_dev<-st_dv(dataFilt=tumo[,1:2],pathway=path)
 ```
 
 
@@ -507,7 +507,7 @@ Starting from a matrix of gene expression (rows are genes and columns are sample
 
 
 ```{r, eval = TRUE}
-cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:3],pathway=path)
+cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:2],pathway=path)
 ```
 
 
@@ -528,13 +528,8 @@ res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(
 
 # `plotting_cross_talk`: Plot pathway cross-talk
 
-Visualization of the pathway cross-talk network. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width of the lines indicates the strength of the correlation. 
+The function `plotting_cross_talk` creates the input for the visualization using `qgraph` package. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width of the lines indicates the strength of the correlation. 
 
-```{r, eval = FALSE}
-library(qgraph)
-mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
-r<-qgraph(mt$corr, groups=mt$gruppi, mar=c(1,1,1,1),minimum=0.6)
-```
 
 The result from `plotting_cross_talk` is shown below:
 ```{r, fig.width=6, fig.height=4, echo=FALSE, fig.align="center"}
