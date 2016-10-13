@@ -266,7 +266,7 @@ return(score)
 #' @examples
 #' nf <- 60
 #' res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,
-#' normal=colnames(norm[,1:15]),tumour=colnames(tumo[,1:15]))
+#' normal=colnames(norm[,1:10]),tumour=colnames(tumo[,1:10]))
 svm_classification<-function(TCGA_matrix,tumour,normal,nfs){
   #library("e1071")
   #library(ROCR)
