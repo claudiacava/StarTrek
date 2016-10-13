@@ -180,14 +180,14 @@ euc_dist_crtlk <- function(dataFilt,pathway){
 
 #' @title For TCGA data get human pathway data and creates a measure of standard deviations among pathways 
 #' @description st_dv creates a matrix with standard deviation for pathways  
-#' @param dataFilt TCGA matrix
+#' @param DataMatrix TCGA matrix
 #' @param pathway pathway data
 #' @export
 #' @return a matrix value for each pathway 
 #' @examples
-#' stand_dev<-st_dv(dataFilt=tumo[,1:2],pathway=path)
-st_dv<-function(dataFilt,pathway){
-DataMatrix<-dataFilt
+#' stand_dev<-st_dv(DataMatrix=tumo[,1:2],pathway=path)
+st_dv<-function(DataMatrix,pathway){
+#DataMatrix<-dataFilt
 
 #dataFilt[ , "new.col"] <- gsub("\\|.*", "", rownames(dataFilt))
 #DataMatrix<-dataFilt[which(dataFilt$new.col!="?"),]

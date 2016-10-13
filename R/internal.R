@@ -1,16 +1,16 @@
-overlap <- function(net_type,x,currentPathway_genes){
-  de<-net_type[which(net_type$m_shar_pro==x),]
-  fr<-intersect(de$m2_shar_pro,currentPathway_genes)
-  go=list()
-  if(length(fr)!=0)    {
-    for (i in 1:length(fr)){
-      de2<-de[which(de$m2_shar_pro==fr[i]),]
-      go[[i]]<-de2
-    }
-  }            
-  dst<-do.call("rbind", go)
-  return(dst)
-}
+#overlap <- function(net_type,x,currentPathway_genes){
+ # de<-net_type[which(net_type$m_shar_pro==x),]
+#  fr<-intersect(de$m2_shar_pro,currentPathway_genes)
+ # go=list()
+  #if(length(fr)!=0)    {
+   # for (i in 1:length(fr)){
+   #   de2<-de[which(de$m2_shar_pro==fr[i]),]
+    #  go[[i]]<-de2
+    #}
+  #}            
+#  dst<-do.call("rbind", go)
+ # return(dst)
+#}
 
 
 select_path_carb<-function(Carbohydrate){

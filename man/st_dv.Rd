@@ -4,12 +4,12 @@
 \alias{st_dv}
 \title{For TCGA data get human pathway data and creates a measure of standard deviations among pathways}
 \usage{
-st_dv(dataFilt, pathway)
+st_dv(DataMatrix, pathway)
 }
 \arguments{
-\item{dataFilt}{TCGA matrix}
-
 \item{pathway}{pathway data}
+
+\item{dataFilt}{TCGA matrix}
 }
 \value{
 a matrix value for each pathway
@@ -18,6 +18,6 @@ a matrix value for each pathway
 st_dv creates a matrix with standard deviation for pathways
 }
 \examples{
-stand_dev<-st_dv(dataFilt=tumo[,1:2],pathway=path)
+stand_dev<-st_dv(DataMatrix=tumo[,1:2],pathway=path)
 }
 
