@@ -449,7 +449,7 @@ The network category can be filtered using the following parameters:
 * **SHpd**  Shared_protein_domains 
 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 netw<-getNETdata(network="COloc")
 ```
 
@@ -546,7 +546,7 @@ res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(
 
 Visualization of the pathway cross-talk network. This function uses the relationship among genes as correlation  (green for positive correlations and red for negative correlations) and the width of the lines indicates the strength of the correlation. 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 library(qgraph)
 mt<-plotting_cross_talk(DataMatrix=tumo,pathway=path,path_matrix=list_path_plot)
 r<-qgraph(mt$corr, groups=mt$gruppi, mar=c(1,1,1,1),minimum=0.6)
