@@ -496,7 +496,7 @@ score_st_dev<-st_dv(DataMatrix=tumo[,1:2],pathway=path)
 Starting from a matrix of gene expression (rows are genes and columns are samples, TCGA data) the function `euc_dist_crtlk` creates an euclidean distance matrix of gene expression for pairwise pathway.
 
 ```{r, eval = TRUE}
-score_euc_dist<-euc_dist_crtlk(dataFilt=Data_CANCER_normUQ_filt,pathway=path)
+score_euc_dista<-euc_dist_crtlk(dataFilt=tumo[,1:2],pathway=path)
 ```
 
 

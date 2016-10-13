@@ -7,9 +7,9 @@
 st_dv(DataMatrix, pathway)
 }
 \arguments{
-\item{pathway}{pathway data}
+\item{DataMatrix}{TCGA matrix}
 
-\item{dataFilt}{TCGA matrix}
+\item{pathway}{pathway data}
 }
 \value{
 a matrix value for each pathway

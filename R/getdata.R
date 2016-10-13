@@ -7,7 +7,7 @@
 #' @importFrom AnnotationDbi mappedkeys as.list
 #' @return dataframe with human pathway data
 #' @examples
-#' path<-getKEGGdata(KEGG_path="cell_grow_d")
+#' path<-getKEGGdata(KEGG_path="Transcript")
 getKEGGdata<-function(KEGG_path){
 if (KEGG_path=="Carb_met") {
   mer<-select_path_carb(Carbohydrate)

@@ -15,7 +15,7 @@ ds_score_crtlk(dataFilt, pathway)
 a matrix value for each pathway
 }
 \description{
-st_dv creates a matrix with standard deviation for pathways
+ds_score_crtlk creates a matrix with  discriminating score for pathways
 }
 \examples{
 cross_talk_st_dv<-ds_score_crtlk(dataFilt=tumo[,1:2],pathway=path)

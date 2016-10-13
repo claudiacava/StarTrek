@@ -215,7 +215,7 @@ return(PEAmatrix_sd)
 
 
 #' @title For TCGA data get human pathway data and creates a measure of discriminating score among pathways 
-#' @description st_dv creates a matrix with standard deviation for pathways  
+#' @description ds_score_crtlk creates a matrix with  discriminating score for pathways  
 #' @param dataFilt TCGA matrix
 #' @param pathway pathway data
 #' @export
