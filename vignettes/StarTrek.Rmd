@@ -423,7 +423,7 @@ ORGANISMAL SYSTEMS
 The following code is an example to download the pathways involved in Transcription:
 
 ```{r, eval = TRUE}
-path<-getKEGGdata(KEGG_path="Transcript")
+patha<-getKEGGdata(KEGG_path="Transcript")
 ```
 
 For example the group Transcript contains different pathways:
@@ -518,7 +518,7 @@ This function is used to find the interacting pathways that are altered in a par
 
 ```{r, eval = TRUE}
 nf <- 60
-res_class<-svm_classification(TCGA_matrix=score_euc_dist,nfs=nf,normal=colnames(norm[,1:12]),tumour=colnames(tumo[,1:12]))
+res_class<-svm_classification(TCGA_matrix=score_euc_dist[1:2,],nfs=nf,normal=colnames(norm[,1:12]),tumour=colnames(tumo[,1:12]))
 
 ```
 
