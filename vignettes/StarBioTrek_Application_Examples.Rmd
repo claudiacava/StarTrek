@@ -1,10 +1,10 @@
 ---
-title: "StarTrek:Application Examples"
+title: "StarBioTrek:Application Examples"
 author: Claudia Cava,  Isabella Castiglioni
 date: '`r Sys.Date()`'
 output: pdf_document
 vignette: >
-    %\VignetteIndexEntry{StarTrek:Application Examples}
+    %\VignetteIndexEntry{StarBioTrek:Application Examples}
     %\VignetteEngine{knitr::rmarkdown}
     \usepackage[utf8]{inputenc}
 
@@ -84,9 +84,9 @@ references:
 
 # Introduction 
 
-In this vignette, we demonstrate the application of `StarTrek` as  tool for pathways analysis integrating different data types.  For basic use of the `StarTrek` package,  please refer to the vignette `Working with StarTrek package`.
+In this vignette, we demonstrate the application of `StarBioTrek` as  tool for pathways analysis integrating different data types.  For basic use of the `StarBioTrek` package,  please refer to the vignette `Working with StarBioTrek package`.
 
-`StarTrek` is used as tool to measure pathway activity and pathway cross-talk integrating TCGA data.
+`StarBioTrek` is used as tool to measure pathway activity and pathway cross-talk integrating TCGA data.
 
 # Case Study n 1 Relationship between metabolism and cell growth and death in cancer
 

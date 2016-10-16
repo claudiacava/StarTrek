@@ -1,6 +1,6 @@
-Package: StarTrek
+Package: StarBioTrek
 Type: Package
-Title: StarTrek
+Title: StarBioTrek
 Version: 0.99.27
 Date: 10-13-2016
 Author: Claudia Cava,
@@ -16,7 +16,7 @@ Imports:
 	e1071,
 	ROCR,
 	grDevices
-Description: This tool StarTrek presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network data. 
+Description: This tool StarBioTrek presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network data. 
 License: GPL (>= 3)
 biocViews: GeneRegulation,
     Network,
@@ -34,6 +34,6 @@ Suggests:
 	grid
 VignetteBuilder: knitr
 LazyData: true
-URL: https://github.com/claudiacava/StarTrek
-BugReports: https://github.com/claudiacava/StarTrek/issues
+URL: https://github.com/claudiacava/StarBioTrek
+BugReports: https://github.com/claudiacava/StarBioTrek/issues
 RoxygenNote: 5.0.1

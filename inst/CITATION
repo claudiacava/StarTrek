@@ -1,17 +1,16 @@
-citHeader("To cite StarTrek in publications use:")
+citHeader("To cite StarBioTrek in publications use:")
 
 citEntry(entry = "article",
-         title        = "StarTrek 
+         title        = "StarBioTrek 
     miRNA data",
          author       = personList(as.person("Claudia Cava"),
-                                   as.person("Gloria Bertoli"),
                                    as.person("Isabella Castiglioni")
          ),
          journal = "manuscript in preparation",
          year         = "2016",
          textVersion  =
-             paste("Claudia Cava, Gloria Bertoli,Isabella Castiglioni (2016).",
-                   "StarTrek")
+             paste("Claudia Cava, Isabella Castiglioni (2016).",
+                   "StarBioTrek")
 )
 
 citEntry(entry = "article",

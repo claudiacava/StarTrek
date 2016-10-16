@@ -1,14 +1,14 @@
 #' Download data
 #'
-#' StarTrek allows you to Download data of samples from StarTrek
+#' StarBioTrek allows you to Download data of samples from StarBioTrek
 #'
-#' The functions you're likely to need from \pkg{StarTrek} is
+#' The functions you're likely to need from \pkg{StarBioTrek} is
 #' \code{path_star}
 #'Otherwise refer to the vignettes to see
 #' how to format the documentation.
 #'
 #' @docType package
-#' @name StarTrek
+#' @name StarBioTrek
 NULL
 
 #' Pathway data from KEGG

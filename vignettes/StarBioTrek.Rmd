@@ -1,5 +1,5 @@
 ---
-title: "Working with StarTrek package"
+title: "Working with StarBioTrek package"
 author: "Claudia Cava, Isabella Castiglioni"
 date: "`r Sys.Date()`"
 output: 
@@ -330,7 +330,7 @@ references:
    year: 2016 
 
 - id: ref25
-  title: "StarTrek: an R/Bioconductor package for integrative analysis of TCGA data"
+  title: "StarBioTrek: an R/Bioconductor package for integrative analysis of TCGA data"
   author: 
   - family:  Colaprico, Antonio and Silva, Tiago C. and Olsen, Catharina and Garofano, Luciano and Cava, Claudia and Garolini, Davide and Sabedot, Thais S. and Malta, Tathiane M. and Pagnotta, Stefano M. and Castiglioni, Isabella and Ceccarelli, Michele and Bontempi, Gianluca and Noushmehr, Houtan
   given:
@@ -361,7 +361,7 @@ devtools::load_all(".")
 
 Motivation: 
 New technologies have made possible to identify marker gene signatures. However, gene expression-based signatures present some limitations because they do not consider metabolic role of the genes and are affected by genetic heterogeneity across patient cohorts. Considering the activity of entire pathways rather than the expression levels of individual genes can be a way to exceed these limits.
-This tool `StarTrek` presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network and TCGA data. New measures are under development.  
+This tool `StarBioTrek` presents some methodologies to measure pathway activity and cross-talk among pathways integrating also the information of network and TCGA data. New measures are under development.  
 
 # Installation
 
@@ -369,7 +369,7 @@ To install use the code below.
 
 ```{r, eval = FALSE}
 source("https://bioconductor.org/biocLite.R")
-biocLite("StarTrek")
+biocLite("StarBioTrek")
 ```
 
 
